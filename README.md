@@ -18,13 +18,13 @@ Have you ever stared at a closet full of clothes and still felt like you had not
 ### Design
 
 ## Header of Home Page
-![Header of Home Page](/images/template.png)
+![Header of Home Page](/images/template1.png)
 
 ## Example showed to users
-![Instructions](/images/template1.png)
+![Instructions](/images/template2.png)
 
 ## Example of how the outfit customization would work
-![Template of outfit customization](/images/template2.png)
+![Template of outfit customization](/images/template3.png)
 
 
 ### Key features
