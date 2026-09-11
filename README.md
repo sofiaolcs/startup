@@ -1,8 +1,8 @@
-# Your startup name here
+# Passarela
 
 [My Notes](notes.md)
 
-A brief description of the application here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+A digital storage for user's clothes, allowing outfits to be combined and stored in categories for easy retrieval. Sharing of created outfits also available through a built-in chat.
 
 > [!NOTE]
 > This is a template for your startup application. You must modify this `README.md` file for each phase of your development. You only need to fill in the section for each deliverable when that deliverable is submitted in Canvas. Without completing the section for a deliverable, the TA will not know what to look for when grading your submission. Feel free to add additional information to each deliverable description, but make sure you at least have the list of rubric items and a description of what you did for each item.
@@ -12,37 +12,51 @@ A brief description of the application here. Lorem ipsum dolor sit amet, consect
 
 ### Elevator pitch
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Have you ever stared at a closet full of clothes and still felt like you had nothing to wear? **Passarela** turns your wardrobe into a digital closet where you can store your clothes images, create and organize outfits based on weather or occasion, and discover new combinations without digging through your closet. You can also share your favorite outfits with friends through built-in chat, making it easy to get inspiration and ideas for what to wear.
+
 
 ### Design
 
-![Design image](placeholder.png)
+## Header of Home Page
+![Header of Home Page](/images/template.png)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Example showed to users
+![Instructions](/images/template1.png)
 
-```mermaid
-sequenceDiagram
-    actor You
-    actor Website
-    You->>Website: Replace this with your design
-```
+## Example of how the outfit customization would work
+![Template of outfit customization](/images/template2.png)
+
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- Ability to create an account and securely log in
+- Ability to upload pictures of individual clothing items to a personal digital closet
+- Ability to combine clothing items to create and save outfits
+- Ability to organize outfits by weather, occasion, and day of the week
+- Ability to view saved outfits and clothing items from the user's personal closet
+- Ability to send and receive outfits with friends through built-in chat
+- Ability to see new messages and shared outfits in real time
+- Ability to receive clothing or outfit recommendations using a third-party API
+
 
 ### Technologies
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Use HTML to structure the application pages and organize elements such as the navigation bar, clothing item cards, outfit displays, forms, buttons, and chat interface.
+
+- **CSS** - Use CSS to create the visual design of the application, including the closet layout, clothing and outfit cards, navigation, chat interface, responsive layouts, and styling that works on different screen sizes.
+
+- **React** - Use React to build the application as reusable components, such as login forms, clothing cards, outfit cards, closet views, and chat components. React will also handle routing between pages and update the interface when users add clothing, create outfits, send messages, or receive new information.
+
+- **Service** - The backend service will provide endpoints for registering, logging in, and logging out users, uploading and retrieving clothing items, creating and retrieving outfits, organizing outfits, and sending and retrieving messages. The service will also make a call to a third-party API to provide additional outfit or clothing-related information.
+
+- **DB/Login** - Store user authentication information, clothing items, outfits, and chat messages in a persistent database. Users must be authenticated to access their personal closet and saved outfits. Passwords will be securely stored using the authentication system.
+
+- **WebSocket** - Use WebSocket to provide real-time communication between users. When a friend sends a message or shares an outfit, the recipient will receive the new message or shared outfit in real time without needing to refresh the page.
+
+- **Third-party API** - Use a third-party weather API to retrieve current weather information. The application can use the weather information to help users organize or select outfits appropriate for the current weather.
+
 
 ## 🚀 Specification Deliverable
 
@@ -51,12 +65,12 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Git commit requirement)
-- [ ] Proper use of Markdown
-- [ ] A concise and compelling elevator pitch
-- [ ] Description of key features
-- [ ] Description of how you will use each technology including your 3rd party API and use of WebSocket
-- [ ] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [X] I completed the prerequisites for this deliverable (Git commit requirement)
+- [x] Proper use of Markdown
+- [X] A concise and compelling elevator pitch
+- [X] Description of key features
+- [X] Description of how you will use each technology including your 3rd party API and use of WebSocket
+- [X] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ## 🚀 AWS deliverable
 
