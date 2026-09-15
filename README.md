@@ -78,7 +78,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [X] **Rented EC2 server** - Got a t3.nano.
 - [X] **Leased domain name** - passarela.click was chosen
-- [X] **Server accessible** from my domain: [http://passarela.click](http://passarela.click) - It works!
+- [X] **Server accessible** from my domain: [https://passarela.click/](https://passarela.click/) - It works!
 
 ## 🚀 HTML deliverable
 
