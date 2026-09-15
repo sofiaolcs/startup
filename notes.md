@@ -4,7 +4,7 @@ I love web programming
 
 This file represents what I have learned about web programming.
 
-- [My startup](https://startup.cs260.click)
+- [My startup](http://passarela.click)
 - [My simon](https://simon.cs260.click)
 
 ## Helpful links
@@ -15,7 +15,7 @@ This file represents what I have learned about web programming.
 
 ## AWS
 
-Interesting things I have learned about AWS
+My website is on this domain: [My website](http://passarela.click), and any subdomains: *.passarela.click
 
 ## HTML
 
