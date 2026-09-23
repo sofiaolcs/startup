@@ -15,9 +15,7 @@ This file represents what I have learned about web programming.
 
 ## AWS
 
-My website is on this domain: [My website](https://passarela.click/), and any subdomains: *.passarela.click
-
-## HTML
+My website is on this domain: [My website](https://passarela.click/), and any subdomains: \*.passarela.click
 
 # Using SSH Private Keys with WSL on Windows
 
@@ -56,6 +54,12 @@ appear in WSL as:
 ```text
 /mnt/c/Users/username/...
 ```
+
+## HTML
+
+I have eight HTML pages. I learned about how to store and host images from users and the prices for that. AWS is usually cheap for images, so I will keep using that.
+
+## CSS
 
 ## React
 
