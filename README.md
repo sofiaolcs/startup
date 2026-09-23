@@ -14,18 +14,19 @@ A digital storage for user's clothes, allowing outfits to be combined and stored
 
 Have you ever stared at a closet full of clothes and still felt like you had nothing to wear? **Passarela** turns your wardrobe into a digital closet where you can store your clothes images, create and organize outfits based on weather or occasion, and discover new combinations without digging through your closet. You can also share your favorite outfits with friends through built-in chat, making it easy to get inspiration and ideas for what to wear.
 
-
 ### Design
 
 ## Header of Home Page
+
 ![Header of Home Page](/images/template1.png)
 
 ## Example showed to users
+
 ![Instructions](/images/template2.png)
 
 ## Example of how the outfit customization would work
-![Template of outfit customization](/images/template3.png)
 
+![Template of outfit customization](/images/template3.png)
 
 ### Key features
 
@@ -37,7 +38,6 @@ Have you ever stared at a closet full of clothes and still felt like you had not
 - Ability to send and receive outfits with friends through built-in chat
 - Ability to see new messages and shared outfits in real time
 - Ability to receive clothing or outfit recommendations using a third-party API
-
 
 ### Technologies
 
@@ -57,7 +57,6 @@ I am going to use the required technologies in the following ways.
 
 - **Third-party API** - Use a third-party weather API to retrieve current weather information. The application can use the weather information to help users organize or select outfits appropriate for the current weather.
 
-
 ## 🚀 Specification Deliverable
 
 > [!NOTE]
@@ -65,35 +64,35 @@ I am going to use the required technologies in the following ways.
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [X] I completed the prerequisites for this deliverable (Git commit requirement)
+- [x] I completed the prerequisites for this deliverable (Git commit requirement)
 - [x] Proper use of Markdown
-- [X] A concise and compelling elevator pitch
-- [X] Description of key features
-- [X] Description of how you will use each technology including your 3rd party API and use of WebSocket
-- [X] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
+- [x] A concise and compelling elevator pitch
+- [x] Description of key features
+- [x] Description of how you will use each technology including your 3rd party API and use of WebSocket
+- [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ## 🚀 AWS deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [X] **Rented EC2 server** - Got a t3.nano.
-- [X] **Leased domain name** - passarela.click was chosen
-- [X] **Server accessible** from my domain: [https://passarela.click/](https://passarela.click/) - It works!
+- [x] **Rented EC2 server** - Got a t3.nano.
+- [x] **Leased domain name** - passarela.click was chosen
+- [x] **Server accessible** from my domain: [https://passarela.click/](https://passarela.click/) - It works!
 
 ## 🚀 HTML deliverable
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
+- [x] **HTML pages** - Eight pages added
+- [x] **Proper HTML element usage** - Each page uses a structured HTML layout with `<body>`, `<header>`, `<nav>`, `<main>`, and `<footer>` elements.
+- [x] **Links** - Header with links to all pages in every page
+- [x] **Text** - Each page includes descriptive text explaining the purpose of the page and its functionality. Text was added for clothing items, outfits, weather information, user information, and communication features.
+- [x] **3rd party API placeholder** - The Planner page includes a placeholder for weather information that will later be retrieved from a third-party weather API.
+- [x] **Images** - Images and image placeholders were added to represent clothing items, outfits, profile information, and other visual content throughout the application.
+- [x] **Login placeholder** - The Login page includes placeholders for user authentication, including email and password fields. The application also displays the logged-in user's name as a placeholder on the appropriate pages.
+- [x] **DB data placeholder** - The Closet, Outfits, Friends, and Profile pages contain example data representing information that will later be retrieved from the database.
+- [x] **WebSocket placeholder** - The Friends page includes a chat area and shared-outfit section showing where real-time messages and outfit sharing will appear when WebSocket functionality is implemented.
 
 ## 🚀 CSS deliverable
 
