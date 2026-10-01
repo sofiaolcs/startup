@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Passarela</title>
-    <link rel="stylesheet" href="clothes.css" />
+    <link rel="stylesheet" href="create-outfit.css" />
     <link rel="stylesheet" href="../../components/footer.css" />
     <link rel="stylesheet" href="../../components/header.css" />
     <script src="../script.js"></script>
@@ -14,11 +14,16 @@
       <section>
         <a href="../clothes/clothes.html" class="button">Add clothes</a>
         <a href="../closet/closet.html" class="button">See outfits</a>
-        <h1>Select Clothes</h1>
+
+        <h1>Create Outfit</h1>
+        <h3>0 clothes select</h3>
 
         <div class="clothes">
           <article>
-            <h2>White T-Shirt</h2>
+            <div class="checkbox-title">
+              <input type="checkbox" name="clothing" />
+              <h2>White T-Shirt</h2>
+            </div>
             <p>Type: Top</p>
             <p>Color: White</p>
             <p>Brand: Example Brand</p>
@@ -26,7 +31,10 @@
           </article>
 
           <article>
-            <h2>Blue Jeans</h2>
+            <div class="checkbox-title">
+              <input type="checkbox" name="clothing" />
+              <h2>Blue Jeans</h2>
+            </div>
             <p>Type: Bottom</p>
             <p>Color: Blue</p>
             <img src="images/placeholder-jeans.jpg" alt="Blue jeans" />
