@@ -30,10 +30,21 @@ header {
     text-transform: uppercase;
     box-shadow: 4px 4px 0px #b7479b;
     align-self: center;
+
+    a {
+      color: black;
+      text-decoration: none;
+    }
   }
 
-  a {
-    color: black;
-    text-decoration: none;
+
+  div {
+    text-align: end;
+    margin-right: 2rem;
+    margin-bottom: 0.5rem;
+
+    & * {
+      font-family: "Roboto", monospace;
+    }
   }
 }
