@@ -20,3 +20,7 @@
   justify-self: center;
   gap: 1rem;
 }
+
+img {
+  height: 300px;
+}

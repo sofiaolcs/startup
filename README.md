@@ -100,7 +100,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] I completed the prerequisites for this deliverable (Simon deployed, GitHub link, Git commits)
 - [x] **Visually appealing colors and layout. No overflowing elements.** - Yes!
-- [x] **Use of a CSS framework** - I did not complete this part of the deliverable.
+- [x] **Use of a CSS framework** - Bootstrap carousel on closet page
 - [x] **All visual elements styled using CSS** - Added many different elements
 - [x] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
 - [x] **Use of a imported font** - Yes! Using imported font in all pages
