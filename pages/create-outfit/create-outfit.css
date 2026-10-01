@@ -4,7 +4,7 @@
   margin: 1rem;
 }
 
-.clothes {
+.outfits {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
@@ -13,12 +13,4 @@
   & > * {
     text-align: center;
   }
-}
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 30%;
-  margin: 3rem;
 }

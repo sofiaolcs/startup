@@ -12,23 +12,79 @@
     <div id="header"></div>
     <main>
       <section>
-        <button>Add clothes</button>
-        <h2>My Clothes</h2>
-        <button>Filter by category</button>
-        <article>
-          <h3>White T-Shirt</h3>
-          <p>Type: Top</p>
-          <p>Color: White</p>
-          <p>Brand: Example Brand</p>
-          <img src="images/placeholder-shirt.jpg" alt="White t-shirt" />
-        </article>
+        <a href="../create-outfit/create-outfit.html" class="button"
+          >Create outfit</a
+        >
+        <a href="../closet/closet.html" class="button">See outfits</a>
 
-        <article>
-          <h3>Blue Jeans</h3>
-          <p>Type: Bottom</p>
-          <p>Color: Blue</p>
-          <img src="images/placeholder-jeans.jpg" alt="Blue jeans" />
-        </article>
+        <form class="clothes-form">
+          <label for="clothing-name">Name</label>
+          <input
+            type="text"
+            id="clothing-name"
+            name="clothing-name"
+            placeholder="White T-Shirt"
+            required
+          />
+
+          <label for="clothing-type">Type</label>
+          <select id="clothing-type" name="clothing-type" required>
+            <option value="">Select a type</option>
+            <option value="top">Top</option>
+            <option value="bottom">Bottom</option>
+            <option value="dress">Dress</option>
+            <option value="shoes">Shoes</option>
+            <option value="outerwear">Outerwear</option>
+            <option value="accessory">Accessory</option>
+          </select>
+
+          <label for="clothing-color">Color</label>
+          <input
+            type="text"
+            id="clothing-color"
+            name="clothing-color"
+            placeholder="White"
+            required
+          />
+
+          <label for="clothing-brand">Brand</label>
+          <input
+            type="text"
+            id="clothing-brand"
+            name="clothing-brand"
+            placeholder="Example Brand"
+          />
+
+          <label for="clothing-image">Image</label>
+          <input
+            type="file"
+            id="clothing-image"
+            name="clothing-image"
+            accept="image/*"
+            required
+          />
+
+          <button type="submit">Add Clothing</button>
+        </form>
+
+        <h1>My Clothes</h1>
+
+        <div class="clothes">
+          <article>
+            <h2>White T-Shirt</h2>
+            <p>Type: Top</p>
+            <p>Color: White</p>
+            <p>Brand: Example Brand</p>
+            <img src="images/placeholder-shirt.jpg" alt="White t-shirt" />
+          </article>
+
+          <article>
+            <h2>Blue Jeans</h2>
+            <p>Type: Bottom</p>
+            <p>Color: Blue</p>
+            <img src="images/placeholder-jeans.jpg" alt="Blue jeans" />
+          </article>
+        </div>
       </section>
     </main>
     <div id="footer"></div>
