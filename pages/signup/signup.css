@@ -1,0 +1,9 @@
+@import url('../../components/global.css');
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 30%;
+  margin: 3rem;
+}
