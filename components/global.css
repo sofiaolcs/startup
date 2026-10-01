@@ -23,6 +23,7 @@ button,
   text-transform: uppercase;
   box-shadow: 4px 4px 0px #b7479b;
   align-self: center;
+  cursor: pointer;
 }
 
 a {
