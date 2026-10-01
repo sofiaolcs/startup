@@ -10,8 +10,7 @@ footer {
   min-height: 300px;
   padding: 3rem;
   font-family: "Roboto", monospace;
-
-
+  margin-top: auto;
 }
 
 footer > :last-child {
@@ -29,3 +28,4 @@ footer h2 {
   text-transform: uppercase;
   font-family: "Bitcount Grid Single", monospace;
 }
+

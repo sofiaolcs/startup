@@ -61,6 +61,9 @@ I have eight HTML pages. I learned about how to store and host images from users
 
 ## CSS
 
+- remove margin
+- send footer to end of page view
+
 ## React
 
 Interesting things I have learned about React

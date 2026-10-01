@@ -1,0 +1,16 @@
+@import url('../../components/global.css');
+
+.button {
+  margin: 1rem;
+}
+
+.outfits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin: 3rem;
+
+  & > * {
+    text-align: center;
+  }
+}
