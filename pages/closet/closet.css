@@ -2,6 +2,8 @@
 
 .button {
   margin: 1rem;
+  color: black;
+  text-decoration: none;
 }
 
 .outfits {
@@ -11,6 +13,22 @@
   margin: 3rem;
 
   & > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
+  }
+}
+
+.carousel {
+  max-width: 300px;
+
+  img {
+    height: 300px;
+    object-fit: cover;
+  }
+
+  button {
+    background-color: black;
   }
 }
