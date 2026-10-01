@@ -1,0 +1,32 @@
+@import url('../../components/global.css');
+
+button {
+  width: 10rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 2rem;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.outfit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  .button {
+    align-self: start;
+  }
+}
