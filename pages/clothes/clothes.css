@@ -27,8 +27,24 @@ img {
   height: 300px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .clothes {
     grid-template-columns: 1fr;
+  }
+
+  .buttons {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+
+  form {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 3rem;
   }
 }

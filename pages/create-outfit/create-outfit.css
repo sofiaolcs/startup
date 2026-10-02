@@ -24,3 +24,25 @@
 img {
   height: 300px;
 }
+
+@media (max-width: 1000px) {
+  .clothes {
+    grid-template-columns: 1fr;
+  }
+
+  .buttons {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+
+  .titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+}
