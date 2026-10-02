@@ -32,3 +32,14 @@
     background-color: black;
   }
 }
+
+@media (max-width: 1000px) {
+  .outfits {
+    grid-template-columns: 1fr;
+  }
+
+  .buttons {
+    display: flex;
+    margin-bottom: 1rem;
+  }
+}

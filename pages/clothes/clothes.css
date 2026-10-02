@@ -26,3 +26,9 @@ form {
 img {
   height: 300px;
 }
+
+@media (max-width: 900px) {
+  .clothes {
+    grid-template-columns: 1fr;
+  }
+}

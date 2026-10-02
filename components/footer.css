@@ -1,14 +1,20 @@
+@import url('../../components/global.css');
+
 footer {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   background-color: #f694dd;
   box-sizing: border-box;
   border-radius: 20px 20px 0 0;
   border-top: 4px solid black;
   box-shadow: 0 0 0 4px #b7479b;
-  justify-content: space-between;
   padding: 3rem;
   font-family: 'Roboto', monospace;
   margin-top: auto;
+
+  > :nth-child(2) {
+    text-align: center;
+  }
 }
 
 footer > :last-child {
@@ -21,8 +27,20 @@ footer h2 {
   font-family: 'Bitcount Grid Single', monospace;
 }
 
-footer h2 {
-  font-weight: bold;
-  text-transform: uppercase;
-  font-family: 'Bitcount Grid Single', monospace;
+@media (max-width: 767px) {
+  footer {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 2rem;
+    gap: 2rem;
+
+    > :nth-child(2) {
+      order: 3;
+      padding-top: 2rem;
+    }
+
+    > :last-child {
+      text-align: center;
+    }
+  }
 }
