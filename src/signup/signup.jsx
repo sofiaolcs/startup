@@ -20,7 +20,7 @@ export function Signup() {
             placeholder="Enter your name"
           />
 
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"

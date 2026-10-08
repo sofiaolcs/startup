@@ -71,14 +71,14 @@ export function Clothes() {
             <p>Type: Top</p>
             <p>Color: White</p>
             <p>Brand: Example Brand</p>
-            <img src="../../images/clothes/top1.jpg" alt="White cardigan" />
+            <img src="/images/clothes/top1.jpg" alt="White cardigan" />
           </article>
 
           <article>
             <h2>Blue Jeans</h2>
             <p>Type: Bottom</p>
             <p>Color: Blue</p>
-            <img src="../../images/clothes/pants2.jpg" alt="Blue jeans" />
+            <img src="/images/clothes/pants2.jpg" alt="Blue jeans" />
           </article>
         </div>
       </section>

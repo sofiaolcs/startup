@@ -12,7 +12,7 @@ export function Login() {
         <h2>Log In</h2>
 
         <form>
-          <label for="email">Email</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"

@@ -8,7 +8,7 @@ export function Profile() {
       <h1>My Profile</h1>
 
       <section className="profile-main-info">
-        <img src="../../images/cher.png" alt="Profile picture" />
+        <img src="/images/cher.png" alt="Profile picture" />
 
         <h2>Sofia Silva</h2>
         <p>sofia@example.com</p>

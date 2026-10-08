@@ -27,7 +27,7 @@ export function Closet() {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="../../images/clothes/top1.jpg"
+                    src="/images/clothes/top1.jpg"
                     className="d-block w-100"
                     alt="White T-Shirt"
                   />
@@ -35,7 +35,7 @@ export function Closet() {
 
                 <div className="carousel-item">
                   <img
-                    src="../../images/clothes/skirt.jpg"
+                    src="/images/clothes/skirt.jpg"
                     className="d-block w-100"
                     alt="Blue Jeans"
                   />
@@ -43,7 +43,7 @@ export function Closet() {
 
                 <div className="carousel-item">
                   <img
-                    src="../../images/clothes/shoe2.png"
+                    src="/images/clothes/shoe2.png"
                     className="d-block w-100"
                     alt="Sneakers"
                   />
@@ -81,7 +81,7 @@ export function Closet() {
               <div className="carousel-inner">
                 <div className="carousel-item active">
                   <img
-                    src="../../images/clothes/top.png"
+                    src="/images/clothes/top.png"
                     className="d-block w-100"
                     alt="White T-Shirt"
                   />
@@ -89,7 +89,7 @@ export function Closet() {
 
                 <div className="carousel-item">
                   <img
-                    src="../../images/clothes/pants.png"
+                    src="/images/clothes/pants.png"
                     className="d-block w-100"
                     alt="Blue Jeans"
                   />
@@ -97,7 +97,7 @@ export function Closet() {
 
                 <div className="carousel-item">
                   <img
-                    src="../../images/clothes/bag.png"
+                    src="/images/clothes/bag.png"
                     className="d-block w-100"
                     alt="Sneakers"
                   />

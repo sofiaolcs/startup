@@ -26,7 +26,7 @@ export function CreateOutfit() {
             <p>Type: Top</p>
             <p>Color: White</p>
             <p>Brand: Example Brand</p>
-            <img src="../../images/clothes/top1.jpg" alt="White cardigan" />
+            <img src="/images/clothes/top1.jpg" alt="White cardigan" />
           </article>
 
           <article>
@@ -36,7 +36,7 @@ export function CreateOutfit() {
             </div>
             <p>Type: Bottom</p>
             <p>Color: Blue</p>
-            <img src="../../images/clothes/pants2.jpg" alt="Blue jeans" />
+            <img src="/images/clothes/pants2.jpg" alt="Blue jeans" />
           </article>
         </div>
       </section>
