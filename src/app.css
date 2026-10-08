@@ -15,11 +15,6 @@
   width: 100%;
 }
 
-main {
-  margin-block: 1rem;
-  margin-inline: 3rem;
-}
-
 button,
 .button {
   display: inline-block;
@@ -52,8 +47,9 @@ h2 {
   text-transform: uppercase;
 }
 
-main {
+.content {
   flex: 1;
+  margin-block: 1rem;
 }
 
 footer {

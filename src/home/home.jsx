@@ -6,7 +6,7 @@ export function Home() {
   return (
     <main>
       <section className="hero glossy-effect">
-        <img src="../../images/banner.png" alt="banner" />
+        <img src="/images/banner.png" alt="banner" />
       </section>
       <section id="content">
         <section className="card-section">
@@ -18,7 +18,7 @@ export function Home() {
                 Upload photos of your favorite pieces and build your digital
                 closet. Keep track of everything you own in one organized place.
               </p>
-              <img src="../../images/camera.png" alt="camera" />
+              <img src="/images/camera.png" alt="camera" />
             </div>
             <div className="card">
               <h2>Mix & Match</h2>
@@ -26,12 +26,12 @@ export function Home() {
                 Experiment with different combinations and discover outfits you
                 never thought of before. Your wardrobe, your creativity.
               </p>
-              <img src="../../images/phone.png" alt="phone" />
+              <img src="/images/phone.png" alt="phone" />
             </div>
             <div className="card">
               <h2>The World Is Your Runway</h2>
               <p>Dress with confidence wherever life takes you.</p>
-              <img src="../../images/cher.png" alt="cher" />
+              <img src="/images/cher.png" alt="cher" />
             </div>
           </div>
         </section>

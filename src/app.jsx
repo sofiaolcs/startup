@@ -15,6 +15,7 @@ import { Signup } from './signup/signup';
 export default function App() {
   return (
   <BrowserRouter>
+  <div className="body">
   <header>
   <nav className="navbar navbar-expand-lg navbar-light">
     <div className="container-fluid">
@@ -72,6 +73,7 @@ export default function App() {
   </nav>
 </header>
 
+<div className="content">
 <Routes>
   <Route path='/' element={<Home />} exact />
   <Route path='/closet' element={<Closet />} />
@@ -84,6 +86,7 @@ export default function App() {
   <Route path='/signup' element={<Signup />} />
   <Route path='*' element={<NotFound />} />
 </Routes>
+</div>
 
 <footer>
   <div>
@@ -101,6 +104,7 @@ export default function App() {
     <p>Follow us for outfit inspiration and updates!</p>
   </div>
 </footer>
+</div>
 </BrowserRouter>
 )
 }
