@@ -1,6 +1,6 @@
-@import url('../../components/global.css');
+@import url('../app.css');
 
-body {
+.body {
   cursor:
     url('images/cursor-solid.png') 0 0,
     auto;

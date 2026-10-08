@@ -59,8 +59,6 @@ footer {
   margin-top: auto;
 }
 
-@import url('../../components/global.css');
-
 header {
   background-color: #f694dd;
   padding: 0.5rem;
@@ -129,8 +127,6 @@ header .welcome {
     margin-top: 1rem;
   }
 }
-
-@import url('../../components/global.css');
 
 footer {
   display: grid;

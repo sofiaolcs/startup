@@ -1,29 +1,18 @@
-<!doctype html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Passarela</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="/components/header.css" />
-    <link rel="stylesheet" href="/components/footer.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <script src="/pages/script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  </head>
-  <body>
-    <div id="header"></div>
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
+import './home.css';
+
+export function Login() {
+  return (
     <main>
-      <section class="hero glossy-effect">
+      <section className="hero glossy-effect">
         <img src="../../images/banner.png" alt="banner" />
       </section>
       <section id="content">
-        <section class="card-section">
+        <section classNameName="card-section">
           <h1>Instructions</h1>
-          <div class="instructions-cards">
-            <div class="card">
+          <div className="instructions-cards">
+            <div className="card">
               <h2>Add Your Clothes</h2>
               <p>
                 Upload photos of your favorite pieces and build your digital
@@ -31,7 +20,7 @@
               </p>
               <img src="../../images/camera.png" alt="camera" />
             </div>
-            <div class="card">
+            <div className="card">
               <h2>Mix & Match</h2>
               <p>
                 Experiment with different combinations and discover outfits you
@@ -39,7 +28,7 @@
               </p>
               <img src="../../images/phone.png" alt="phone" />
             </div>
-            <div class="card">
+            <div className="card">
               <h2>The World Is Your Runway</h2>
               <p>Dress with confidence wherever life takes you.</p>
               <img src="../../images/cher.png" alt="cher" />
@@ -48,6 +37,5 @@
         </section>
       </section>
     </main>
-    <div id="footer"></div>
-  </body>
-</html>
+  );
+}

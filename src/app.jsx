@@ -1,13 +1,23 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Closet } from './closet/closet';
+import { Clothes } from './clothes/clothes';
+import { CreateOutfit } from './create-outfit/create-outfit';
+import { Friends } from './friends/friends';
+import { Login } from './login/login';
+import { Planner } from './planner/planner';
+import { Profile } from './profile/profile';
+import { Signup } from './signup/signup';
 
 export default function App() {
-  return <div className="body bg-dark text-light">
+  return (
+  <BrowserRouter><div className="body bg-dark text-light">
   <header>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/"> PASSARELA </a>
+      <NavLink class="navbar-brand" to="/"> PASSARELA </NavLink>
 
       <button
         class="navbar-toggler"
@@ -24,47 +34,60 @@ export default function App() {
       <div class="collapse navbar-collapse" id="mainNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="/"> Home Page ✨ </a>
+            <NavLink class="nav-link" to="/"> Home Page ✨ </NavLink>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/pages/closet/closet.html">
+            <NavLink class="nav-link" to="/pages/closet/closet.html">
               Your closet ✨
-            </a>
+            </NavLink>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/pages/planner/planner.html">
+            <NavLink class="nav-link" to="/pages/planner/planner.html">
               Planner ✨
-            </a>
+            </NavLink>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/pages/friends/friends.html">
+            <NavLink class="nav-link" to="/pages/friends/friends.html">
               Friends ✨
-            </a>
+            </NavLink>
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="/pages/profile/profile.html">
+            <NavLink class="nav-link" to="/pages/profile/profile.html">
               Profile ✨
-            </a>
+            </NavLink>
           </li>
         </ul>
 
         <div class="welcome">
           <p>Welcome, Sofia Silva!</p>
-          <a href="/pages/login/login.html">Log in</a>
+          <NavLink to="/pages/login/login.html">Log in</NavLink>
         </div>
       </div>
     </div>
   </nav>
 </header>
 
+<Routes>
+  <Route path='/' element={<Home />} exact />
+  <Route path='/closet' element={<Closet />} />
+  <Route path='/clothes' element={<Clothes />} />
+  <Route path='/create-outfit' element={<CreateOutfit />} />
+  <Route path='/friends' element={<Friends />} />
+  <Route path='/login' element={<Login />} />
+  <Route path='/planner' element={<Planner />} />
+  <Route path='/profile' element={<Profile />} />
+  <Route path='/signup' element={<Signup />} />
+  <Route path='*' element={<NotFound />} />
+</Routes>
+
 <footer>
   <div>
     <h2>Resources</h2>
-    <a href="https://github.com/sofiaolcs/startup">GitHub</a>
+    <NavLink to="https://github.com/sofiaolcs/startup">GitHub</NavLink>
     <p>Style Tips</p>
     <p>Wardrobe Guide</p>
     <p>Outfit Inspiration</p>
@@ -78,4 +101,10 @@ export default function App() {
   </div>
 </footer>
 </div>;
+</BrowserRouter>
+)
+}
+
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
 }
