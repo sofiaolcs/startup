@@ -51,13 +51,13 @@ export default function App() {
           </li>
 
           <li className="nav-item">
-            <NavLink className="nav-link" to="/pages/friends/friends.html">
+            <NavLink className="nav-link" to="/friends">
               Friends ✨
             </NavLink>
           </li>
 
           <li className="nav-item">
-            <NavLink className="nav-link" to="/pages/profile/profile.html">
+            <NavLink className="nav-link" to="/profile">
               Profile ✨
             </NavLink>
           </li>
@@ -65,7 +65,7 @@ export default function App() {
 
         <div className="welcome">
           <p>Welcome, Sofia Silva!</p>
-          <NavLink to="/pages/login/login.html">Log in</NavLink>
+          <NavLink to="/login">Log in</NavLink>
         </div>
       </div>
     </div>
