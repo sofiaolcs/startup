@@ -1,4 +1,10 @@
-<header>
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './app.css';
+
+export default function App() {
+  return <div className="body bg-dark text-light">
+  <header>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="/"> PASSARELA </a>
@@ -54,3 +60,22 @@
     </div>
   </nav>
 </header>
+
+<footer>
+  <div>
+    <h2>Resources</h2>
+    <a href="https://github.com/sofiaolcs/startup">GitHub</a>
+    <p>Style Tips</p>
+    <p>Wardrobe Guide</p>
+    <p>Outfit Inspiration</p>
+  </div>
+  <p>© 2026 Passarela. All rights reserved.</p>
+  <div>
+    <h2>Contact Us</h2>
+    <p>Have questions, feedback, or style suggestions?</p>
+    <p>Email: hello@passarela.com</p>
+    <p>Follow us for outfit inspiration and updates!</p>
+  </div>
+</footer>
+</div>;
+}
