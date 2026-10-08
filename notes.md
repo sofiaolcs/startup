@@ -65,4 +65,19 @@ I have eight HTML pages. I learned about how to store and host images from users
 
 ## React
 
-Interesting things I have learned about React
+A component is a reusable piece of UI.
+JSX lets us write HTML-like syntax inside JavaScript.
+A React project can use tools such as:
+
+Node.js
+npm
+Vite
+VS Code
+React
+
+Node.js provides the environment needed to run JavaScript tools such as npm.
+
+Check installations:
+
+node -v
+npm -v
