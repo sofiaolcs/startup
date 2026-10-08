@@ -63,6 +63,12 @@ export default function App() {
               Profile ✨
             </NavLink>
           </li>
+
+          <li className="nav-item">
+            <a className="nav-link" href="https://github.com/sofiaolcs/startup">
+              GitHub ✨
+            </a>
+          </li>
         </ul>
 
         <div className="welcome">

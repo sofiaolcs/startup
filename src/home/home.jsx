@@ -5,7 +5,7 @@ import './home.css';
 export function Home() {
   return (
     <main>
-      <section className="hero glossy-effect">
+      <section className="hero">
         <img src="/images/banner.png" alt="banner" />
       </section>
       <section id="content">
