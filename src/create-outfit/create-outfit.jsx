@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './create-outfit.css';
+import { NavLink } from 'react-router-dom';
 
 export function CreateOutfit() {
   return (

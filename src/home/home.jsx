@@ -2,14 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './home.css';
 
-export function Login() {
+export function Home() {
   return (
     <main>
       <section className="hero glossy-effect">
         <img src="../../images/banner.png" alt="banner" />
       </section>
       <section id="content">
-        <section classNameName="card-section">
+        <section className="card-section">
           <h1>Instructions</h1>
           <div className="instructions-cards">
             <div className="card">

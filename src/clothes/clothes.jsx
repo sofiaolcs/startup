@@ -1,8 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './clothes.css';
+import { NavLink } from 'react-router-dom';
 
-export function Closet() {
+export function Clothes() {
   return (
         <main>
       <section>

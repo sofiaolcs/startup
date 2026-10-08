@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './planner.css';
+import { NavLink } from 'react-router-dom';
 
 export function Planner() {
   return (

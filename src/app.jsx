@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Home } from './home/home';
 import { Closet } from './closet/closet';
 import { Clothes } from './clothes/clothes';
 import { CreateOutfit } from './create-outfit/create-outfit';
@@ -13,14 +14,14 @@ import { Signup } from './signup/signup';
 
 export default function App() {
   return (
-  <BrowserRouter><div className="body bg-dark text-light">
+  <BrowserRouter>
   <header>
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container-fluid">
-      <NavLink class="navbar-brand" to="/"> PASSARELA </NavLink>
+  <nav className="navbar navbar-expand-lg navbar-light">
+    <div className="container-fluid">
+      <NavLink className="navbar-brand" to="/"> PASSARELA </NavLink>
 
       <button
-        class="navbar-toggler"
+        className="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#mainNav"
@@ -28,41 +29,41 @@ export default function App() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <NavLink class="nav-link" to="/"> Home Page ✨ </NavLink>
+      <div className="collapse navbar-collapse" id="mainNav">
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/"> Home Page ✨ </NavLink>
           </li>
 
-          <li class="nav-item">
-            <NavLink class="nav-link" to="/pages/closet/closet.html">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/closet">
               Your closet ✨
             </NavLink>
           </li>
 
-          <li class="nav-item">
-            <NavLink class="nav-link" to="/pages/planner/planner.html">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/planner">
               Planner ✨
             </NavLink>
           </li>
 
-          <li class="nav-item">
-            <NavLink class="nav-link" to="/pages/friends/friends.html">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/pages/friends/friends.html">
               Friends ✨
             </NavLink>
           </li>
 
-          <li class="nav-item">
-            <NavLink class="nav-link" to="/pages/profile/profile.html">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/pages/profile/profile.html">
               Profile ✨
             </NavLink>
           </li>
         </ul>
 
-        <div class="welcome">
+        <div className="welcome">
           <p>Welcome, Sofia Silva!</p>
           <NavLink to="/pages/login/login.html">Log in</NavLink>
         </div>
@@ -100,7 +101,6 @@ export default function App() {
     <p>Follow us for outfit inspiration and updates!</p>
   </div>
 </footer>
-</div>;
 </BrowserRouter>
 )
 }

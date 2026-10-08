@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './login.css';
+import { NavLink } from 'react-router-dom';
 
 export function Login() {
   return (
@@ -32,7 +33,7 @@ export function Login() {
 
         <p>
           Don't have an account?
-          <NavLink to="../signup/signup.html" class="button">Create an account</NavLink>
+          <NavLink to="../signup/signup.html" className="button">Create an account</NavLink>
         </p>
       </section>
     </main>
