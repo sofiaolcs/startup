@@ -1,6 +1,6 @@
 @import url('../app.css');
 
-main {
+.friends-page {
   display: grid;
   grid-template-columns: 1fr 2fr 2fr;
   gap: 1rem;
@@ -49,12 +49,12 @@ article {
 }
 
 @media (max-width: 950px) {
-  main {
+  .friends-page {
     grid-template-columns: 1fr 1fr;
     justify-items: center;
   }
 
-  main > :last-child {
+  .friends-page > :last-child {
     grid-column: 1 / -1;
   }
 
@@ -68,7 +68,7 @@ article {
 }
 
 @media (max-width: 700px) {
-  main {
+  .friends-page {
     grid-template-columns: 1fr;
   }
 

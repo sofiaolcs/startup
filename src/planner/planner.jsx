@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 export function Planner() {
   return (
-    <main>
+    <main className="planner-page">
       <aside>
         <h1>Select a day:</h1>
         <button>Monday</button>

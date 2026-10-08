@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 export function Login() {
   return (
-    <main>
+    <main className="login-page">
       <p>Log in to access your Passarela closet.</p>
 
       <section>

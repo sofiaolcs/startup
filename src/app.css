@@ -8,6 +8,13 @@
   padding: 0;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 .body {
   min-height: 100vh;
   display: flex;
@@ -50,6 +57,7 @@ h2 {
 .content {
   flex: 1;
   margin-block: 1rem;
+  margin-inline: 3rem;
 }
 
 footer {

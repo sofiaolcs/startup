@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 export function Friends() {
   return (
-      <main>
+      <main className="friends-page">
       <section>
         <h2>Find Friends</h2>
         <div className="input-button">

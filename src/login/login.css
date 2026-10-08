@@ -1,6 +1,6 @@
 @import url('../app.css');
 
-main {
+.login-page {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -12,7 +12,7 @@ button {
 
 form {
   display: flex;
-  width: 40%;
+  width: 57%;
   flex-direction: column;
   gap: 0.5rem;
   width: 30%;

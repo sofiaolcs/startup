@@ -4,7 +4,7 @@ import './profile.css';
 
 export function Profile() {
   return (
-  <main>
+  <main className="profile-page">
       <h1>My Profile</h1>
 
       <section className="profile-main-info">
