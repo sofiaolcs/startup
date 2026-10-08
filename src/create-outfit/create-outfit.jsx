@@ -8,8 +8,8 @@ export function CreateOutfit() {
         <main>
       <section>
         <div className="buttons">
-          <NavLink to="../clothes/clothes.html" className="button">Add clothes</NavLink>
-          <NavLink to="../closet/closet.html" className="button">See outfits</NavLink>
+          <NavLink to="/clothes" className="button">Add clothes</NavLink>
+          <NavLink to="/closet" className="button">See outfits</NavLink>
         </div>
 
         <div className="titles">

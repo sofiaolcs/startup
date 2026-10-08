@@ -42,7 +42,7 @@ export function Friends() {
             <li>Sneakers</li>
           </ul>
 
-          <NavLink to="../closet/closet.html" className="button">View Outfit</NavLink>
+          <NavLink to="/closet" className="button">View Outfit</NavLink>
         </article>
 
         <form>

@@ -1,13 +1,5 @@
 @import url('../app.css');
 
-.body {
-  cursor:
-    url('images/cursor-solid.png') 0 0,
-    auto;
-  margin: 0;
-  width: 100%;
-}
-
 main {
   display: flex;
   flex-direction: column;

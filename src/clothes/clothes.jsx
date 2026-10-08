@@ -8,9 +8,9 @@ export function Clothes() {
         <main>
       <section>
         <div className="buttons">
-          <NavLink to="../create-outfit/create-outfit.html" className="button"
+          <NavLink to="/create-outfit" className="button"
             >Create outfit</NavLink>
-          <NavLink to="../closet/closet.html" className="button">See outfits</NavLink>
+          <NavLink to="/closet" className="button">See outfits</NavLink>
         </div>
 
         <form className="clothes-form">

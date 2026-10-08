@@ -41,7 +41,7 @@ export function Signup() {
 
         <p>
           Already have an account?
-          <NavLink to="../login/login.html" className="button">Log in</NavLink>
+          <NavLink to="/login" className="button">Log in</NavLink>
         </p>
       </section>
     </main>

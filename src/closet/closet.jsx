@@ -7,9 +7,9 @@ export function Closet() {
   return (
     <main>
       <div className="buttons">
-        <NavLink to="../create-outfit/create-outfit.html" className="button"
+        <NavLink to="/create-outfit" className="button"
           >Create outfit</NavLink>
-        <NavLink to="../clothes/clothes.html" className="button">Add clothes</NavLink>
+        <NavLink to="/clothes" className="button">Add clothes</NavLink>
       </div>
 
       <section>

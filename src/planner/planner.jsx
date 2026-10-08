@@ -33,7 +33,7 @@ export function Planner() {
             <p>Black Pants</p>
             <p>Black Flats</p>
 
-            <NavLink to="../closet/closet.html" className="button">View Outfit</NavLink>
+            <NavLink to="/closet" className="button">View Outfit</NavLink>
           </article>
         </section>
       </div>

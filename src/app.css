@@ -8,6 +8,13 @@
   padding: 0;
 }
 
+.body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
 main {
   margin-block: 1rem;
   margin-inline: 3rem;
@@ -43,12 +50,6 @@ h1 {
 h2 {
   font-family: 'Roboto', monospace;
   text-transform: uppercase;
-}
-
-.body {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 main {

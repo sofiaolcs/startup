@@ -33,7 +33,7 @@ export function Login() {
 
         <p>
           Don't have an account?
-          <NavLink to="../signup/signup.html" className="button">Create an account</NavLink>
+          <NavLink to="/signup" className="button">Create an account</NavLink>
         </p>
       </section>
     </main>
