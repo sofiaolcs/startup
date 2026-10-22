@@ -14,6 +14,26 @@ import { Profile } from './profile/profile';
 import { Signup } from './signup/signup';
 
 export default function App() {
+  const [user, setUser] = React.useState(() => {
+  const savedUser = localStorage.getItem('passarelaUser');
+  return savedUser ? JSON.parse(savedUser) : null;
+});
+
+function handleLogin(userData) {
+  setUser(userData);
+  localStorage.setItem('passarelaUser', JSON.stringify(userData));
+}
+
+function handleSignup(userData) {
+  setUser(userData);
+  localStorage.setItem('passarelaUser', JSON.stringify(userData));
+}
+
+function handleLogout() {
+  setUser(null);
+  localStorage.removeItem('passarelaUser');
+}
+
   return (
   <BrowserRouter>
   <div className="body">
@@ -71,10 +91,22 @@ export default function App() {
           </li>
         </ul>
 
-        <div className="welcome">
-          <p>Welcome, Sofia Silva!</p>
-          <NavLink to="/login">Log in</NavLink>
-        </div>
+       <div className="welcome">
+  {user ? (
+    <>
+      <p>Welcome, {user.name}!</p>
+      <button type="button" onClick={handleLogout}>
+        Log out
+      </button>
+    </>
+  ) : (
+    <>
+      <NavLink to="/login">Log in</NavLink>
+      {' | '}
+      <NavLink to="/signup">Sign up</NavLink>
+    </>
+  )}
+</div>
       </div>
     </div>
   </nav>
@@ -87,10 +119,17 @@ export default function App() {
   <Route path='/clothes' element={<Clothes />} />
   <Route path='/create-outfit' element={<CreateOutfit />} />
   <Route path='/friends' element={<Friends />} />
-  <Route path='/login' element={<Login />} />
   <Route path='/planner' element={<Planner />} />
   <Route path='/profile' element={<Profile />} />
-  <Route path='/signup' element={<Signup />} />
+  <Route
+  path="/login"
+  element={<Login onLogin={handleLogin} />}
+/>
+
+<Route
+  path="/signup"
+  element={<Signup onSignup={handleSignup} />}
+/>
   <Route path='*' element={<NotFound />} />
 </Routes>
 </div>
