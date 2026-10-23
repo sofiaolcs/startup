@@ -1,128 +1,152 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import './closet.css';
 import { NavLink } from 'react-router-dom';
 
+const initialOutfits = [
+  {
+    id: 1,
+    name: 'Casual Day',
+    items: [
+      {
+        name: 'White T-Shirt',
+        image: '/images/clothes/top1.jpg',
+      },
+      {
+        name: 'Blue Jeans',
+        image: '/images/clothes/skirt.jpg',
+      },
+      {
+        name: 'White Sneakers',
+        image: '/images/clothes/shoe2.png',
+      },
+    ],
+  },
+  {
+    id: 2,
+    name: 'Work Outfit',
+    items: [
+      {
+        name: 'White Blouse',
+        image: '/images/clothes/top.png',
+      },
+      {
+        name: 'Black Pants',
+        image: '/images/clothes/pants.png',
+      },
+      {
+        name: 'Black Flats',
+        image: '/images/clothes/bag.png',
+      },
+    ],
+  },
+];
+
 export function Closet() {
+  const [outfits, setOutfits] = React.useState(() => {
+    try {
+      const savedOutfits = localStorage.getItem('passarelaOutfits');
+      return savedOutfits ? JSON.parse(savedOutfits) : initialOutfits;
+    } catch {
+      return initialOutfits;
+    }
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem('passarelaOutfits', JSON.stringify(outfits));
+  }, [outfits]);
+
+  function removeOutfit(outfitId) {
+    setOutfits((currentOutfits) =>
+      currentOutfits.filter((outfit) => outfit.id !== outfitId)
+    );
+  }
+
   return (
     <main>
       <div className="buttons">
-        <NavLink to="/create-outfit" className="button"
-          >Create outfit</NavLink>
-        <NavLink to="/clothes" className="button">Add clothes</NavLink>
+        <NavLink to="/create-outfit" className="button">
+          Create outfit
+        </NavLink>
+
+        <NavLink to="/clothes" className="button">
+          Add clothes
+        </NavLink>
       </div>
 
       <section>
         <h1>My Closet</h1>
 
         <div className="outfits">
-          <article className="outfit-card">
-            <h2>Casual Day</h2>
+          {outfits.length === 0 ? (
+            <p>
+              Your closet is empty. Create an outfit to get started!
+            </p>
+          ) : (
+            outfits.map((outfit) => {
+              const carouselId = `outfitCarousel${outfit.id}`;
 
-            <p>White T-Shirt</p>
-            <p>Blue Jeans</p>
-            <p>White Sneakers</p>
+              return (
+                <article className="outfit-card" key={outfit.id}>
+                  <h2>{outfit.name}</h2>
 
-            <div id="outfitCarousel1" className="carousel slide">
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img
-                    src="/images/clothes/top1.jpg"
-                    className="d-block w-100"
-                    alt="White T-Shirt"
-                  />
-                </div>
+                  {outfit.items.map((item) => (
+                    <p key={item.name}>{item.name}</p>
+                  ))}
 
-                <div className="carousel-item">
-                  <img
-                    src="/images/clothes/skirt.jpg"
-                    className="d-block w-100"
-                    alt="Blue Jeans"
-                  />
-                </div>
+                  <div id={carouselId} className="carousel slide">
+                    <div className="carousel-inner">
+                      {outfit.items.map((item, index) => (
+                        <div
+                          className={`carousel-item ${
+                            index === 0 ? 'active' : ''
+                          }`}
+                          key={item.name}
+                        >
+                          <img
+                            src={item.image}
+                            className="d-block w-100"
+                            alt={item.name}
+                          />
+                        </div>
+                      ))}
+                    </div>
 
-                <div className="carousel-item">
-                  <img
-                    src="/images/clothes/shoe2.png"
-                    className="d-block w-100"
-                    alt="Sneakers"
-                  />
-                </div>
-              </div>
+                    {outfit.items.length > 1 && (
+                      <>
+                        <button
+                          className="carousel-control-prev"
+                          type="button"
+                          data-bs-target={`#${carouselId}`}
+                          data-bs-slide="prev"
+                          aria-label="Previous item"
+                        >
+                          <span className="carousel-control-prev-icon" />
+                        </button>
 
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#outfitCarousel1"
-                data-bs-slide="prev"
-              >
-                <span className="carousel-control-prev-icon"></span>
-              </button>
+                        <button
+                          className="carousel-control-next"
+                          type="button"
+                          data-bs-target={`#${carouselId}`}
+                          data-bs-slide="next"
+                          aria-label="Next item"
+                        >
+                          <span className="carousel-control-next-icon" />
+                        </button>
+                      </>
+                    )}
+                  </div>
 
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#outfitCarousel1"
-                data-bs-slide="next"
-              >
-                <span className="carousel-control-next-icon"></span>
-              </button>
-            </div>
-          </article>
-
-          <article className="outfit-card">
-            <h2>Work Outfit</h2>
-
-            <p>White Blouse</p>
-            <p>Black Pants</p>
-            <p>Black Flats</p>
-
-            <div id="outfitCarousel2" className="carousel slide">
-              <div className="carousel-inner">
-                <div className="carousel-item active">
-                  <img
-                    src="/images/clothes/top.png"
-                    className="d-block w-100"
-                    alt="White T-Shirt"
-                  />
-                </div>
-
-                <div className="carousel-item">
-                  <img
-                    src="/images/clothes/pants.png"
-                    className="d-block w-100"
-                    alt="Blue Jeans"
-                  />
-                </div>
-
-                <div className="carousel-item">
-                  <img
-                    src="/images/clothes/bag.png"
-                    className="d-block w-100"
-                    alt="Sneakers"
-                  />
-                </div>
-              </div>
-
-              <button
-                className="carousel-control-prev"
-                type="button"
-                data-bs-target="#outfitCarousel2"
-                data-bs-slide="prev"
-              >
-                <span className="carousel-control-prev-icon"></span>
-              </button>
-
-              <button
-                className="carousel-control-next"
-                type="button"
-                data-bs-target="#outfitCarousel2"
-                data-bs-slide="next"
-              >
-                <span className="carousel-control-next-icon"></span>
-              </button>
-            </div>
-          </article>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger btn-sm mt-3"
+                    onClick={() => removeOutfit(outfit.id)}
+                  >
+                    Remove outfit
+                  </button>
+                </article>
+              );
+            })
+          )}
         </div>
       </section>
     </main>
