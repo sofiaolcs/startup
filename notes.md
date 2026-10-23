@@ -81,3 +81,11 @@ Check installations:
 
 node -v
 npm -v
+
+Hooks are functions that let React components manage data and perform actions.
+
+useState stores information that can change, such as clothing items, outfits, or login status.
+
+useEffect runs code after a component renders, such as loading saved data or synchronizing information.
+
+When state changes, React updates the user interface automatically.
