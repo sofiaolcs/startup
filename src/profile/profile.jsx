@@ -1,18 +1,79 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './profile.css';
 
-export function Profile() {
+export function Profile({ user, onLogout }) {
+  const navigate = useNavigate();
+
+  const [description, setDescription] = React.useState(
+    'I love casual and feminine outfits.'
+  );
+
+  const [editing, setEditing] = React.useState(false);
+  const [clothingCount, setClothingCount] = React.useState(0);
+  const [outfitCount, setOutfitCount] = React.useState(0);
+
+  React.useEffect(() => {
+    const clothes = JSON.parse(
+      localStorage.getItem('passarelaClothes') || '[]'
+    );
+    const outfits = JSON.parse(
+      localStorage.getItem('passarelaOutfits') || '[]'
+    );
+
+    setClothingCount(clothes.length);
+    setOutfitCount(outfits.length);
+  }, []);
+
+  function handleLogout() {
+    onLogout();
+    navigate('/');
+  }
+
   return (
-  <main className="profile-page">
+    <main className="profile-page">
       <h1>My Profile</h1>
 
       <section className="profile-main-info">
         <img src="/images/cher.png" alt="Profile picture" />
 
-        <h2>Sofia Silva</h2>
-        <p>sofia@example.com</p>
-        <p>I love casual and feminine outfits.</p>
+        <h2>{user?.name || 'Sofia Silva'}</h2>
+        <p>{user?.email || 'sofia@example.com'}</p>
+
+        {editing ? (
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              setEditing(false);
+            }}
+          >
+            <textarea
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              required
+            />
+
+            <button type="submit">Save</button>
+
+            <button
+              type="button"
+              onClick={() => setEditing(false)}
+            >
+              Cancel
+            </button>
+          </form>
+        ) : (
+          <>
+            <p>{description}</p>
+
+            <button
+              type="button"
+              onClick={() => setEditing(true)}
+            >
+              Edit Profile
+            </button>
+          </>
+        )}
       </section>
 
       <div className="info">
@@ -24,14 +85,15 @@ export function Profile() {
 
         <section>
           <h2>My Passarela</h2>
-          <p>24 clothing items</p>
-          <p>8 saved outfits</p>
+          <p>{clothingCount} clothing items</p>
+          <p>{outfitCount} saved outfits</p>
           <p>5 friends</p>
         </section>
       </div>
 
-      <button>Edit Profile</button>
-      <button>Log Out</button>
+      <button type="button" onClick={handleLogout}>
+        Log Out
+      </button>
     </main>
   );
 }

@@ -120,7 +120,10 @@ function handleLogout() {
   <Route path='/create-outfit' element={<CreateOutfit />} />
   <Route path='/friends' element={<Friends />} />
   <Route path='/planner' element={<Planner />} />
-  <Route path='/profile' element={<Profile />} />
+  <Route
+  path="/profile"
+  element={<Profile user={user} onLogout={handleLogout} />}
+/>
   <Route
   path="/login"
   element={<Login onLogin={handleLogin} />}
