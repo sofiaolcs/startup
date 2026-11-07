@@ -26,6 +26,20 @@ app.get('/api/hello', (_req, res) => {
   res.send({ message: 'Welcome to Passarela!' });
 });
 
+app.get('/api/weather', async (req, res) => {
+  try {
+    const response = await fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=40.2338&longitude=-111.6585&current=temperature_2m,relative_humidity_2m,weather_code'
+    );
+
+    const weather = await response.json();
+
+    res.send(weather);
+  } catch (error) {
+    res.status(500).send({ message: 'Unable to retrieve weather.' });
+  }
+});
+
 // Create a new user
 app.post('/api/auth/create', async (req, res) => {
   if (users.find((user) => user.email === req.body.email)) {

@@ -15,6 +15,15 @@ const days = [
 export function Planner() {
   const [selectedDay, setSelectedDay] = React.useState('Monday');
 
+  const [weather, setWeather] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch('/api/weather')
+      .then((response) => response.json())
+      .then((data) => setWeather(data.current))
+      .catch((error) => console.error('Error fetching weather:', error));
+  }, []);
+
   const [outfits] = React.useState(() => {
     try {
       return JSON.parse(localStorage.getItem('passarelaOutfits')) || [];
@@ -82,13 +91,19 @@ export function Planner() {
       </aside>
 
       <div className="day">
-        <section>
-          <h2>{selectedDay}'s Weather</h2>
-          <p>
-            Weather information will appear here. Live weather is not
-            connected yet.
-          </p>
-        </section>
+      <section>
+        <h2>{selectedDay}'s Weather</h2>
+
+        {weather ? (
+          <>
+            <p>Temperature: {weather.temperature_2m}°C</p>
+            <p>Humidity: {weather.relative_humidity_2m}%</p>
+            <p>Weather code: {weather.weather_code}</p>
+          </>
+        ) : (
+          <p>Loading weather...</p>
+        )}
+      </section>
 
         <section>
           <h2>Outfit for {selectedDay}</h2>
