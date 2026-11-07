@@ -7,22 +7,25 @@ export function Login({ onLogin }) {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
+async function handleSubmit(event) {
+  event.preventDefault();
 
-    if (!email.trim() || !password) {
-      setError('Please enter your email and password.');
-      return;
-    }
-
-    setError('');
-
-    // Mock login: notify App.jsx that the user logged in.
-    onLogin({
-      name: email.split('@')[0],
-      email: email,
-    });
+  if (!email.trim() || !password) {
+    setError('Please enter your email and password.');
+    return;
   }
+
+  setError('');
+
+  try {
+    await onLogin({
+      email: email.trim(),
+      password: password,
+    });
+  } catch (error) {
+    setError(error.message || 'Invalid email or password.');
+  }
+}
 
   return (
     <main className="login-page">
