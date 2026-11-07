@@ -18,6 +18,7 @@ app.use(cookieParser());
 let users = [];
 let clothes = [];
 let outfits = [];
+let sessions = [];
 
 // Test endpoint
 app.get('/api/hello', (_req, res) => {
@@ -41,6 +42,11 @@ app.post('/api/auth/create', async (req, res) => {
   users.push(user);
 
   const token = uuidv4();
+
+  sessions.push({
+  token: token,
+  email: user.email,
+});
 
   res.cookie(authCookieName, token, {
     httpOnly: true,
@@ -83,6 +89,36 @@ app.post('/api/auth/login', async (req, res) => {
     name: user.name,
     email: user.email,
   });
+});
+
+// Verify that the user is authenticated
+function verifyAuth(req, res, next) {
+  const token = req.cookies[authCookieName];
+
+  const session = sessions.find((session) => session.token === token);
+
+  if (!session) {
+    return res.status(401).send({ message: 'You must be logged in.' });
+  }
+
+  req.user = users.find((user) => user.email === session.email);
+
+  next();
+}
+
+// Log out the user
+app.delete('/api/auth/logout', verifyAuth, (req, res) => {
+  const token = req.cookies[authCookieName];
+
+  sessions = sessions.filter((session) => session.token !== token);
+
+  res.clearCookie(authCookieName, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+  });
+
+  res.send({ message: 'Logged out successfully.' });
 });
 
 // Start server
