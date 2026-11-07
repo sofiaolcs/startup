@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -216,6 +217,8 @@ app.delete('/api/outfits/:id', verifyAuth, (req, res) => {
 
   res.send({ message: 'Outfit removed.' });
 });
+
+app.use(express.static(path.join(__dirname, '..', 'dist')));
 
 // Start server
 app.listen(port, () => {
