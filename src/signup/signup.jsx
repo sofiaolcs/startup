@@ -23,11 +23,11 @@ export function Signup({ onSignup }) {
 
     setError('');
 
-    // Mock signup: notify App.jsx that the account was created.
-    onSignup({
-      name: name.trim(),
-      email: email.trim(),
-    });
+  onSignup({
+    name: name.trim(),
+    email: email.trim(),
+    password: password,
+  });
   }
 
   return (
