@@ -2,34 +2,21 @@ import React from 'react';
 import './clothes.css';
 import { NavLink } from 'react-router-dom';
 
-const initialClothes = [
-  {
-    id: 1,
-    name: 'White Cardigan',
-    type: 'top',
-    color: 'White',
-    brand: 'Example Brand',
-    image: '/images/clothes/top1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Blue Jeans',
-    type: 'bottom',
-    color: 'Blue',
-    brand: '',
-    image: '/images/clothes/pants2.jpg',
-  },
-];
-
 export function Clothes() {
-  const [clothes, setClothes] = React.useState(() => {
-    try {
-      const savedClothes = localStorage.getItem('passarelaClothes');
-      return savedClothes ? JSON.parse(savedClothes) : initialClothes;
-    } catch {
-      return initialClothes;
+const [clothes, setClothes] = React.useState([]);
+
+React.useEffect(() => {
+  async function loadClothes() {
+    const response = await fetch('/api/clothes');
+
+    if (response.ok) {
+      const data = await response.json();
+      setClothes(data);
     }
-  });
+  }
+
+  loadClothes();
+}, []);
 
   const [name, setName] = React.useState('');
   const [type, setType] = React.useState('');
@@ -37,10 +24,6 @@ export function Clothes() {
   const [brand, setBrand] = React.useState('');
   const [imageFile, setImageFile] = React.useState(null);
   const [error, setError] = React.useState('');
-
-  React.useEffect(() => {
-    localStorage.setItem('passarelaClothes', JSON.stringify(clothes));
-  }, [clothes]);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -52,29 +35,43 @@ export function Clothes() {
 
     const reader = new FileReader();
 
-    reader.onload = () => {
-      const newClothing = {
-        id: Date.now(),
-        name: name.trim(),
-        type,
-        color: color.trim(),
-        brand: brand.trim(),
-        image: reader.result,
-      };
+reader.onload = async () => {
+  const newClothing = {
+    name: name.trim(),
+    type,
+    color,
+    brand,
+    image: reader.result,
+  };
 
-      setClothes((currentClothes) => [
-        ...currentClothes,
-        newClothing,
-      ]);
+  try {
+    const response = await fetch('/api/clothes', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newClothing),
+    });
 
-      setName('');
-      setType('');
-      setColor('');
-      setBrand('');
-      setImageFile(null);
-      event.target.reset();
-      setError('');
-    };
+    if (!response.ok) {
+      setError('Could not save clothing item.');
+      return;
+    }
+
+    const savedClothing = await response.json();
+
+    setClothes((previous) => [...previous, savedClothing]);
+
+    setName('');
+    setType('');
+    setColor('');
+    setBrand('');
+    setImageFile(null);
+    setError('');
+  } catch {
+    setError('Could not connect to the server.');
+  }
+};
 
     reader.onerror = () => {
       setError('Could not read the image. Please try another one.');
@@ -83,11 +80,24 @@ export function Clothes() {
     reader.readAsDataURL(imageFile);
   }
 
-  function handleRemove(id) {
+ async function handleRemove(id) {
+  try {
+    const response = await fetch(`/api/clothes/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      setError('Could not remove clothing item.');
+      return;
+    }
+
     setClothes((currentClothes) =>
       currentClothes.filter((item) => item.id !== id)
     );
+  } catch {
+    setError('Could not connect to the server.');
   }
+}
 
   return (
     <main>
