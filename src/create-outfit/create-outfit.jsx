@@ -24,14 +24,26 @@ const sampleClothes = [
 export function CreateOutfit() {
   const navigate = useNavigate();
 
-  const [clothes] = React.useState(() => {
+ const [clothes, setClothes] = React.useState([]);
+
+React.useEffect(() => {
+  async function loadClothes() {
     try {
-      const savedClothes = localStorage.getItem('passarelaClothes');
-      return savedClothes ? JSON.parse(savedClothes) : sampleClothes;
+      const response = await fetch('/api/clothes');
+
+      if (!response.ok) {
+        throw new Error('Could not load clothes.');
+      }
+
+      const data = await response.json();
+      setClothes(data);
     } catch {
-      return sampleClothes;
+      setError('Could not load your clothes. Please try again.');
     }
-  });
+  }
+
+  loadClothes();
+}, []);
 
   const [selectedIds, setSelectedIds] = React.useState([]);
   const [outfitName, setOutfitName] = React.useState('');
@@ -45,44 +57,47 @@ export function CreateOutfit() {
     );
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+async function handleSubmit(event) {
+  event.preventDefault();
 
-    if (!outfitName.trim()) {
-      setError('Please enter a name for your outfit.');
-      return;
-    }
-
-    if (selectedIds.length === 0) {
-      setError('Please select at least one clothing item.');
-      return;
-    }
-
-    const selectedClothes = clothes.filter((item) =>
-      selectedIds.includes(item.id)
-    );
-
-    const newOutfit = {
-      id: Date.now(),
-      name: outfitName.trim(),
-      items: selectedClothes,
-    };
-
-    try {
-      const savedOutfits = localStorage.getItem('passarelaOutfits');
-      const outfits = savedOutfits ? JSON.parse(savedOutfits) : [];
-
-      localStorage.setItem(
-        'passarelaOutfits',
-        JSON.stringify([...outfits, newOutfit])
-      );
-
-      setError('');
-      navigate('/closet');
-    } catch {
-      setError('Could not save your outfit. Please try again.');
-    }
+  if (!outfitName.trim()) {
+    setError('Please enter a name for your outfit.');
+    return;
   }
+
+  if (selectedIds.length === 0) {
+    setError('Please select at least one clothing item.');
+    return;
+  }
+
+  const selectedClothes = clothes.filter((item) =>
+    selectedIds.includes(item.id)
+  );
+
+  const newOutfit = {
+    name: outfitName.trim(),
+    items: selectedClothes,
+  };
+
+  try {
+    const response = await fetch('/api/outfits', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newOutfit),
+    });
+
+    if (!response.ok) {
+      throw new Error('Could not save your outfit.');
+    }
+
+    setError('');
+    navigate('/closet');
+  } catch {
+    setError('Could not save your outfit. Please try again.');
+  }
+}
 
   return (
     <main>

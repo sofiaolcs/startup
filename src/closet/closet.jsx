@@ -2,64 +2,49 @@ import React from 'react';
 import './closet.css';
 import { NavLink } from 'react-router-dom';
 
-const initialOutfits = [
-  {
-    id: 1,
-    name: 'Casual Day',
-    items: [
-      {
-        name: 'White T-Shirt',
-        image: '/images/clothes/top1.jpg',
-      },
-      {
-        name: 'Blue Jeans',
-        image: '/images/clothes/skirt.jpg',
-      },
-      {
-        name: 'White Sneakers',
-        image: '/images/clothes/shoe2.png',
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Work Outfit',
-    items: [
-      {
-        name: 'White Blouse',
-        image: '/images/clothes/top.png',
-      },
-      {
-        name: 'Black Pants',
-        image: '/images/clothes/pants.png',
-      },
-      {
-        name: 'Black Flats',
-        image: '/images/clothes/bag.png',
-      },
-    ],
-  },
-];
-
 export function Closet() {
-  const [outfits, setOutfits] = React.useState(() => {
+const [outfits, setOutfits] = React.useState([]);
+const [error, setError] = React.useState('');
+
+React.useEffect(() => {
+  async function loadOutfits() {
     try {
-      const savedOutfits = localStorage.getItem('passarelaOutfits');
-      return savedOutfits ? JSON.parse(savedOutfits) : initialOutfits;
+      const response = await fetch('/api/outfits');
+
+      if (!response.ok) {
+        throw new Error('Could not load outfits.');
+      }
+
+      const data = await response.json();
+      setOutfits(data);
     } catch {
-      return initialOutfits;
+      setError('Could not load your outfits. Please try again.');
     }
-  });
+  }
 
-  React.useEffect(() => {
-    localStorage.setItem('passarelaOutfits', JSON.stringify(outfits));
-  }, [outfits]);
+  loadOutfits();
+}, []);
 
-  function removeOutfit(outfitId) {
+async function removeOutfit(outfitId) {
+  try {
+    const response = await fetch(`/api/outfits/${outfitId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      setError('Could not remove outfit.');
+      return;
+    }
+
     setOutfits((currentOutfits) =>
       currentOutfits.filter((outfit) => outfit.id !== outfitId)
     );
+
+    setError('');
+  } catch {
+    setError('Could not connect to the server.');
   }
+}
 
   return (
     <main>
