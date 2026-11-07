@@ -121,6 +121,14 @@ app.delete('/api/auth/logout', verifyAuth, (req, res) => {
   res.send({ message: 'Logged out successfully.' });
 });
 
+// Check whether the user is logged in
+app.get('/api/auth/me', verifyAuth, (req, res) => {
+  res.send({
+    name: req.user.name,
+    email: req.user.email,
+  });
+});
+
 // Get all clothing items for the logged-in user
 app.get('/api/clothes', verifyAuth, (req, res) => {
   const userClothes = clothes.filter(

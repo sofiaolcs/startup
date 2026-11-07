@@ -19,6 +19,28 @@ export default function App() {
   return savedUser ? JSON.parse(savedUser) : null;
 });
 
+React.useEffect(() => {
+  async function checkLogin() {
+    try {
+      const response = await fetch('/api/auth/me');
+
+      if (!response.ok) {
+        throw new Error('Not logged in');
+      }
+
+      const loggedInUser = await response.json();
+
+      setUser(loggedInUser);
+      localStorage.setItem('passarelaUser', JSON.stringify(loggedInUser));
+    } catch {
+      setUser(null);
+      localStorage.removeItem('passarelaUser');
+    }
+  }
+
+  checkLogin();
+}, []);
+
 async function handleLogin(userData) {
   const response = await fetch('/api/auth/login', {
     method: 'POST',
@@ -59,9 +81,15 @@ async function handleSignup(userData) {
   localStorage.setItem('passarelaUser', JSON.stringify(newUser));
 }
 
-function handleLogout() {
-  setUser(null);
-  localStorage.removeItem('passarelaUser');
+async function handleLogout() {
+  try {
+    await fetch('/api/auth/logout', {
+      method: 'DELETE',
+    });
+  } finally {
+    setUser(null);
+    localStorage.removeItem('passarelaUser');
+  }
 }
 
   return (
