@@ -121,6 +121,49 @@ app.delete('/api/auth/logout', verifyAuth, (req, res) => {
   res.send({ message: 'Logged out successfully.' });
 });
 
+// Get all clothing items for the logged-in user
+app.get('/api/clothes', verifyAuth, (req, res) => {
+  const userClothes = clothes.filter(
+    (item) => item.userEmail === req.user.email
+  );
+
+  res.send(userClothes);
+});
+
+// Add a clothing item
+app.post('/api/clothes', verifyAuth, (req, res) => {
+  const newClothing = {
+    id: uuidv4(),
+    userEmail: req.user.email,
+    name: req.body.name,
+    type: req.body.type,
+    color: req.body.color,
+    brand: req.body.brand,
+    image: req.body.image,
+  };
+
+  clothes.push(newClothing);
+
+  res.send(newClothing);
+});
+
+// Delete a clothing item
+app.delete('/api/clothes/:id', verifyAuth, (req, res) => {
+  const clothing = clothes.find(
+    (item) =>
+      item.id === req.params.id &&
+      item.userEmail === req.user.email
+  );
+
+  if (!clothing) {
+    return res.status(404).send({ message: 'Clothing item not found.' });
+  }
+
+  clothes = clothes.filter((item) => item.id !== req.params.id);
+
+  res.send({ message: 'Clothing item removed.' });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
