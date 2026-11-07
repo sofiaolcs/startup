@@ -41,14 +41,14 @@ app.post('/api/auth/create', async (req, res) => {
 
   users.push(user);
 
-  const token = uuidv4();
+const token = uuidv4();
 
-  sessions.push({
+sessions.push({
   token: token,
   email: user.email,
 });
 
-  res.cookie(authCookieName, token, {
+res.cookie(authCookieName, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',

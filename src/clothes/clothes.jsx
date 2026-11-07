@@ -25,60 +25,64 @@ React.useEffect(() => {
   const [imageFile, setImageFile] = React.useState(null);
   const [error, setError] = React.useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
+ async function handleSubmit(event) {
+  event.preventDefault();
 
-    if (!imageFile) {
-      setError('Please choose an image.');
-      return;
-    }
-
-    const reader = new FileReader();
-
-reader.onload = async () => {
-  const newClothing = {
-    name: name.trim(),
-    type,
-    color,
-    brand,
-    image: reader.result,
-  };
-
-  try {
-    const response = await fetch('/api/clothes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newClothing),
-    });
-
-    if (!response.ok) {
-      setError('Could not save clothing item.');
-      return;
-    }
-
-    const savedClothing = await response.json();
-
-    setClothes((previous) => [...previous, savedClothing]);
-
-    setName('');
-    setType('');
-    setColor('');
-    setBrand('');
-    setImageFile(null);
-    setError('');
-  } catch {
-    setError('Could not connect to the server.');
-  }
-};
-
-    reader.onerror = () => {
-      setError('Could not read the image. Please try another one.');
+  async function saveClothing(image) {
+    const newClothing = {
+      name: name.trim(),
+      type,
+      color,
+      brand,
+      image,
     };
 
-    reader.readAsDataURL(imageFile);
+    try {
+      const response = await fetch('/api/clothes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newClothing),
+      });
+
+      if (!response.ok) {
+        setError('Could not save clothing item.');
+        return;
+      }
+
+      const savedClothing = await response.json();
+
+      setClothes((previous) => [...previous, savedClothing]);
+
+      setName('');
+      setType('');
+      setColor('');
+      setBrand('');
+      setImageFile(null);
+      setError('');
+    } catch {
+      setError('Could not connect to the server.');
+    }
   }
+
+  if (!imageFile) {
+    await saveClothing('');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = async () => {
+    await saveClothing(reader.result);
+  };
+
+  reader.onerror = () => {
+    setError('Could not read the image. Please try another one.');
+  };
+
+  reader.readAsDataURL(imageFile);
+}
 
  async function handleRemove(id) {
   try {
@@ -168,7 +172,6 @@ reader.onload = async () => {
             onChange={(event) =>
               setImageFile(event.target.files[0] || null)
             }
-            required
           />
 
           {error && <p role="alert">{error}</p>}
@@ -194,8 +197,9 @@ reader.onload = async () => {
 
                 {item.brand && <p>Brand: {item.brand}</p>}
 
-                <img src={item.image} alt={item.name} />
-
+                {item.image && (
+                  <img src={item.image} alt={item.name} />
+                )}
                 <button
                   type="button"
                   onClick={() => handleRemove(item.id)}
