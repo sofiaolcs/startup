@@ -164,6 +164,46 @@ app.delete('/api/clothes/:id', verifyAuth, (req, res) => {
   res.send({ message: 'Clothing item removed.' });
 });
 
+// Get all outfits for the logged-in user
+app.get('/api/outfits', verifyAuth, (req, res) => {
+  const userOutfits = outfits.filter(
+    (outfit) => outfit.userEmail === req.user.email
+  );
+
+  res.send(userOutfits);
+});
+
+// Create a new outfit
+app.post('/api/outfits', verifyAuth, (req, res) => {
+  const newOutfit = {
+    id: uuidv4(),
+    userEmail: req.user.email,
+    name: req.body.name,
+    items: req.body.items,
+  };
+
+  outfits.push(newOutfit);
+
+  res.send(newOutfit);
+});
+
+// Delete an outfit
+app.delete('/api/outfits/:id', verifyAuth, (req, res) => {
+  const outfit = outfits.find(
+    (item) =>
+      item.id === req.params.id &&
+      item.userEmail === req.user.email
+  );
+
+  if (!outfit) {
+    return res.status(404).send({ message: 'Outfit not found.' });
+  }
+
+  outfits = outfits.filter((item) => item.id !== req.params.id);
+
+  res.send({ message: 'Outfit removed.' });
+});
+
 // Start server
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
