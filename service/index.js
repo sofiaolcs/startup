@@ -79,6 +79,11 @@ app.post('/api/auth/login', async (req, res) => {
 
   const token = uuidv4();
 
+  sessions.push({
+  token: token,
+  email: user.email,
+});
+
   res.cookie(authCookieName, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
