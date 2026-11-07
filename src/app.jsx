@@ -24,9 +24,24 @@ function handleLogin(userData) {
   localStorage.setItem('passarelaUser', JSON.stringify(userData));
 }
 
-function handleSignup(userData) {
-  setUser(userData);
-  localStorage.setItem('passarelaUser', JSON.stringify(userData));
+async function handleSignup(userData) {
+  const response = await fetch('/api/auth/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+
+  const newUser = await response.json();
+
+  setUser(newUser);
+  localStorage.setItem('passarelaUser', JSON.stringify(newUser));
 }
 
 function handleLogout() {
