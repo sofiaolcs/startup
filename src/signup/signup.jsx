@@ -8,27 +8,31 @@ export function Signup({ onSignup }) {
   const [password, setPassword] = React.useState('');
   const [error, setError] = React.useState('');
 
-  function handleSubmit(event) {
-    event.preventDefault();
+ async function handleSubmit(event) {
+  event.preventDefault();
 
-    if (!name.trim() || !email.trim() || !password) {
-      setError('Please fill in all fields.');
-      return;
-    }
-
-    if (password.length < 8) {
-      setError('Your password must be at least 8 characters.');
-      return;
-    }
-
-    setError('');
-
-  onSignup({
-    name: name.trim(),
-    email: email.trim(),
-    password: password,
-  });
+  if (!name.trim() || !email.trim() || !password) {
+    setError('Please fill in all fields.');
+    return;
   }
+
+  if (password.length < 8) {
+    setError('Your password must be at least 8 characters.');
+    return;
+  }
+
+  setError('');
+
+  try {
+    await onSignup({
+      name: name.trim(),
+      email: email.trim(),
+      password: password,
+    });
+  } catch (error) {
+    setError(error.message || 'Something went wrong. Please try again.');
+  }
+}
 
   return (
     <main className="signup-page">
