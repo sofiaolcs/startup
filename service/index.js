@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
+const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
 const app = express();
@@ -232,7 +233,10 @@ app.delete('/api/outfits/:id', verifyAuth, (req, res) => {
   res.send({ message: 'Outfit removed.' });
 });
 
-app.use(express.static(path.join(__dirname, '..', 'dist')));
+const publicPath = path.join(__dirname, 'public');
+const distPath = path.join(__dirname, '..', 'dist');
+
+app.use(express.static(fs.existsSync(publicPath) ? publicPath : distPath));
 
 // Start server
 app.listen(port, () => {
