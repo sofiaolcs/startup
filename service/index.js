@@ -23,12 +23,6 @@ const authCookieName = 'token';
 app.use(express.json());
 app.use(cookieParser());
 
-// In-memory data
-let users = [];
-let clothes = [];
-let outfits = [];
-let sessions = [];
-
 // Test endpoint
 app.get('/api/hello', (_req, res) => {
   res.send({ message: 'Welcome to Passarela!' });
