@@ -300,12 +300,19 @@ app.delete('/api/clothes/:id', verifyAuth, async (req, res) => {
 });
 
 // Get all outfits for the logged-in user
-app.get('/api/outfits', verifyAuth, (req, res) => {
-  const userOutfits = outfits.filter(
-    (outfit) => outfit.userEmail === req.user.email
-  );
+app.get('/api/outfits', verifyAuth, async (req, res) => {
+  try {
+    const userOutfits = await outfitsCollection
+      .find({ userEmail: req.user.email })
+      .toArray();
 
-  res.send(userOutfits);
+    res.send(userOutfits);
+  } catch (error) {
+    console.error('Error retrieving outfits:', error);
+    res.status(500).send({
+      message: 'Unable to retrieve outfits.',
+    });
+  }
 });
 
 // Create a new outfit
