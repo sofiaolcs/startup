@@ -337,20 +337,26 @@ app.post('/api/outfits', verifyAuth, async (req, res) => {
 });
 
 // Delete an outfit
-app.delete('/api/outfits/:id', verifyAuth, (req, res) => {
-  const outfit = outfits.find(
-    (item) =>
-      item.id === req.params.id &&
-      item.userEmail === req.user.email
-  );
+app.delete('/api/outfits/:id', verifyAuth, async (req, res) => {
+  try {
+    const result = await outfitsCollection.deleteOne({
+      id: req.params.id,
+      userEmail: req.user.email,
+    });
 
-  if (!outfit) {
-    return res.status(404).send({ message: 'Outfit not found.' });
+    if (result.deletedCount === 0) {
+      return res.status(404).send({
+        message: 'Outfit not found.',
+      });
+    }
+
+    res.send({ message: 'Outfit removed.' });
+  } catch (error) {
+    console.error('Error deleting outfit:', error);
+    res.status(500).send({
+      message: 'Unable to delete outfit.',
+    });
   }
-
-  outfits = outfits.filter((item) => item.id !== req.params.id);
-
-  res.send({ message: 'Outfit removed.' });
 });
 
 const publicPath = path.join(__dirname, 'public');
