@@ -316,17 +316,24 @@ app.get('/api/outfits', verifyAuth, async (req, res) => {
 });
 
 // Create a new outfit
-app.post('/api/outfits', verifyAuth, (req, res) => {
-  const newOutfit = {
-    id: uuidv4(),
-    userEmail: req.user.email,
-    name: req.body.name,
-    items: req.body.items,
-  };
+app.post('/api/outfits', verifyAuth, async (req, res) => {
+  try {
+    const newOutfit = {
+      id: uuidv4(),
+      userEmail: req.user.email,
+      name: req.body.name,
+      items: req.body.items,
+    };
 
-  outfits.push(newOutfit);
+    await outfitsCollection.insertOne(newOutfit);
 
-  res.send(newOutfit);
+    res.send(newOutfit);
+  } catch (error) {
+    console.error('Error saving outfit:', error);
+    res.status(500).send({
+      message: 'Unable to save outfit.',
+    });
+  }
 });
 
 // Delete an outfit
