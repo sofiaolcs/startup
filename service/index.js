@@ -207,18 +207,25 @@ async function verifyAuth(req, res, next) {
 }
 
 // Log out the user
-app.delete('/api/auth/logout', verifyAuth, (req, res) => {
-  const token = req.cookies[authCookieName];
+app.delete('/api/auth/logout', verifyAuth, async (req, res) => {
+  try {
+    const token = req.cookies[authCookieName];
 
-  sessions = sessions.filter((session) => session.token !== token);
+    await sessionsCollection.deleteOne({ token });
 
-  res.clearCookie(authCookieName, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-  });
+    res.clearCookie(authCookieName, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
 
-  res.send({ message: 'Logged out successfully.' });
+    res.send({ message: 'Logged out successfully.' });
+  } catch (error) {
+    console.error('Logout error:', error);
+    res.status(500).send({
+      message: 'Unable to log out.',
+    });
+  }
 });
 
 // Check whether the user is logged in
