@@ -171,18 +171,39 @@ app.post('/api/auth/login', async (req, res) => {
 });
 
 // Verify that the user is authenticated
-function verifyAuth(req, res, next) {
-  const token = req.cookies[authCookieName];
+async function verifyAuth(req, res, next) {
+  try {
+    const token = req.cookies[authCookieName];
 
-  const session = sessions.find((session) => session.token === token);
+    if (!token) {
+      return res.status(401).send({
+        message: 'You must be logged in.',
+      });
+    }
 
-  if (!session) {
-    return res.status(401).send({ message: 'You must be logged in.' });
+    const session = await sessionsCollection.findOne({ token });
+
+    if (!session) {
+      return res.status(401).send({
+        message: 'You must be logged in.',
+      });
+    }
+
+    const user = await userCollection.findOne({
+      email: session.email,
+    });
+
+    if (!user) {
+      return res.status(401).send({
+        message: 'User not found.',
+      });
+    }
+
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
   }
-
-  req.user = users.find((user) => user.email === session.email);
-
-  next();
 }
 
 // Log out the user
