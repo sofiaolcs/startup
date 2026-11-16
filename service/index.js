@@ -6,6 +6,8 @@ const {
   clothesCollection,
   outfitsCollection,
   sessionsCollection,
+  plannedOutfitsCollection,
+  messagesCollection,
 } = require('./database');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -306,6 +308,42 @@ app.get('/api/outfits', verifyAuth, async (req, res) => {
     res.status(500).send({
       message: 'Unable to retrieve outfits.',
     });
+  }
+});
+
+// Get planned outfits
+app.get('/api/planned-outfits', verifyAuth, async (req, res) => {
+  try {
+    const result = await plannedOutfitsCollection.findOne({
+      userEmail: req.user.email,
+    });
+
+    res.send(result?.plans || {});
+  } catch (error) {
+    console.error('Error retrieving planned outfits:', error);
+    res.status(500).send({ message: 'Unable to retrieve plans.' });
+  }
+});
+
+// Save planned outfits
+app.put('/api/planned-outfits', verifyAuth, async (req, res) => {
+  try {
+    const plans = req.body.plans;
+
+    if (!plans || typeof plans !== 'object' || Array.isArray(plans)) {
+      return res.status(400).send({ message: 'Invalid plans.' });
+    }
+
+    await plannedOutfitsCollection.updateOne(
+      { userEmail: req.user.email },
+      { $set: { plans } },
+      { upsert: true }
+    );
+
+    res.send({ message: 'Planner saved successfully.' });
+  } catch (error) {
+    console.error('Error saving planned outfits:', error);
+    res.status(500).send({ message: 'Unable to save plans.' });
   }
 });
 
