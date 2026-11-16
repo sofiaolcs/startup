@@ -2,25 +2,6 @@ import React from 'react';
 import './create-outfit.css';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-const sampleClothes = [
-  {
-    id: 1,
-    name: 'White Cardigan',
-    type: 'top',
-    color: 'White',
-    brand: 'Example Brand',
-    image: '/images/clothes/top1.jpg',
-  },
-  {
-    id: 2,
-    name: 'Blue Jeans',
-    type: 'bottom',
-    color: 'Blue',
-    brand: '',
-    image: '/images/clothes/pants2.jpg',
-  },
-];
-
 export function CreateOutfit() {
   const navigate = useNavigate();
 

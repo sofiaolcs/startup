@@ -1,3 +1,5 @@
 closet-website.pem
 node_modules/
 dbConfig.json
+.env
+.env *
