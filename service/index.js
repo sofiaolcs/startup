@@ -237,12 +237,19 @@ app.get('/api/auth/me', verifyAuth, (req, res) => {
 });
 
 // Get all clothing items for the logged-in user
-app.get('/api/clothes', verifyAuth, (req, res) => {
-  const userClothes = clothes.filter(
-    (item) => item.userEmail === req.user.email
-  );
+app.get('/api/clothes', verifyAuth, async (req, res) => {
+  try {
+    const userClothes = await clothesCollection
+      .find({ userEmail: req.user.email })
+      .toArray();
 
-  res.send(userClothes);
+    res.send(userClothes);
+  } catch (error) {
+    console.error('Error retrieving clothes:', error);
+    res.status(500).send({
+      message: 'Unable to retrieve clothes.',
+    });
+  }
 });
 
 // Add a clothing item
