@@ -277,20 +277,26 @@ app.post('/api/clothes', verifyAuth, async (req, res) => {
 });
 
 // Delete a clothing item
-app.delete('/api/clothes/:id', verifyAuth, (req, res) => {
-  const clothing = clothes.find(
-    (item) =>
-      item.id === req.params.id &&
-      item.userEmail === req.user.email
-  );
+app.delete('/api/clothes/:id', verifyAuth, async (req, res) => {
+  try {
+    const result = await clothesCollection.deleteOne({
+      id: req.params.id,
+      userEmail: req.user.email,
+    });
 
-  if (!clothing) {
-    return res.status(404).send({ message: 'Clothing item not found.' });
+    if (result.deletedCount === 0) {
+      return res.status(404).send({
+        message: 'Clothing item not found.',
+      });
+    }
+
+    res.send({ message: 'Clothing item removed.' });
+  } catch (error) {
+    console.error('Error deleting clothing:', error);
+    res.status(500).send({
+      message: 'Unable to delete clothing item.',
+    });
   }
-
-  clothes = clothes.filter((item) => item.id !== req.params.id);
-
-  res.send({ message: 'Clothing item removed.' });
 });
 
 // Get all outfits for the logged-in user
