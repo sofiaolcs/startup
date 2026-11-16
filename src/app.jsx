@@ -14,208 +14,265 @@ import { Profile } from './profile/profile';
 import { Signup } from './signup/signup';
 
 export default function App() {
-  const [user, setUser] = React.useState(() => {
-  const savedUser = localStorage.getItem('passarelaUser');
-  return savedUser ? JSON.parse(savedUser) : null;
-});
+  const [user, setUser] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
+  const [logoutError, setLogoutError] = React.useState('');
 
-React.useEffect(() => {
-  async function checkLogin() {
+  // Check authentication using the backend session
+  React.useEffect(() => {
+    let cancelled = false;
+
+    async function checkLogin() {
+      try {
+        const response = await fetch('/api/auth/me');
+
+        if (!response.ok) {
+          throw new Error('Not logged in');
+        }
+
+        const loggedInUser = await response.json();
+
+        if (!cancelled) {
+          setUser(loggedInUser);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          setUser(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    }
+
+    checkLogin();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  // Login
+  async function handleLogin(userData) {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Unable to log in.');
+    }
+
+    const loggedInUser = await response.json();
+    setUser(loggedInUser);
+    setLogoutError('');
+  }
+
+  // Signup
+  async function handleSignup(userData) {
+    const response = await fetch('/api/auth/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || 'Unable to sign up.');
+    }
+
+    const newUser = await response.json();
+    setUser(newUser);
+    setLogoutError('');
+  }
+
+  // Logout
+  async function handleLogout() {
+    setLogoutError('');
+
     try {
-      const response = await fetch('/api/auth/me');
+      const response = await fetch('/api/auth/logout', {
+        method: 'DELETE',
+      });
 
       if (!response.ok) {
-        throw new Error('Not logged in');
+        throw new Error('Unable to log out.');
       }
 
-      const loggedInUser = await response.json();
-
-      setUser(loggedInUser);
-      localStorage.setItem('passarelaUser', JSON.stringify(loggedInUser));
-    } catch {
       setUser(null);
-      localStorage.removeItem('passarelaUser');
+    } catch (error) {
+      console.error('Logout error:', error);
+      setLogoutError(
+        'Unable to log out. Please try again.'
+      );
     }
   }
 
-  checkLogin();
-}, []);
-
-async function handleLogin(userData) {
-  const response = await fetch('/api/auth/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-
-  const loggedInUser = await response.json();
-
-  setUser(loggedInUser);
-  localStorage.setItem('passarelaUser', JSON.stringify(loggedInUser));
-}
-
-async function handleSignup(userData) {
-  const response = await fetch('/api/auth/create', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(userData),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-
-  const newUser = await response.json();
-
-  setUser(newUser);
-  localStorage.setItem('passarelaUser', JSON.stringify(newUser));
-}
-
-async function handleLogout() {
-  try {
-    await fetch('/api/auth/logout', {
-      method: 'DELETE',
-    });
-  } finally {
-    setUser(null);
-    localStorage.removeItem('passarelaUser');
-  }
-}
-
   return (
-  <BrowserRouter>
-  <div className="body">
-  <header>
-  <nav className="navbar navbar-expand-lg navbar-light">
-    <div className="container-fluid">
-      <NavLink className="navbar-brand" to="/"> PASSARELA </NavLink>
+    <BrowserRouter>
+      <div className="body">
+        <header>
+          <nav className="navbar navbar-expand-lg navbar-light">
+            <div className="container-fluid">
+              <NavLink className="navbar-brand" to="/">
+                PASSARELA
+              </NavLink>
 
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#mainNav"
-        aria-controls="mainNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNav"
+                aria-controls="mainNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
 
-      <div className="collapse navbar-collapse" id="mainNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/"> Home Page ✨ </NavLink>
-          </li>
+              <div className="collapse navbar-collapse" id="mainNav">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/">
+                      Home Page ✨
+                    </NavLink>
+                  </li>
 
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/closet">
-              Your closet ✨
-            </NavLink>
-          </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/closet">
+                      Your closet ✨
+                    </NavLink>
+                  </li>
 
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/planner">
-              Planner ✨
-            </NavLink>
-          </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/planner">
+                      Planner ✨
+                    </NavLink>
+                  </li>
 
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/friends">
-              Friends ✨
-            </NavLink>
-          </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/friends">
+                      Friends ✨
+                    </NavLink>
+                  </li>
 
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/profile">
-              Profile ✨
-            </NavLink>
-          </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/profile">
+                      Profile ✨
+                    </NavLink>
+                  </li>
 
-          <li className="nav-item">
-            <a className="nav-link" href="https://github.com/sofiaolcs/startup">
-              GitHub ✨
+                  <li className="nav-item">
+                    <a
+                      className="nav-link"
+                      href="https://github.com/sofiaolcs/startup"
+                    >
+                      GitHub ✨
+                    </a>
+                  </li>
+                </ul>
+
+                <div className="welcome">
+                  {loading ? (
+                    <p>Checking login...</p>
+                  ) : user ? (
+                    <>
+                      <p>Welcome, {user.name}!</p>
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                      >
+                        Log out
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <NavLink to="/login">Log in</NavLink>
+                      {' | '}
+                      <NavLink to="/signup">Sign up</NavLink>
+                    </>
+                  )}
+                  {logoutError && (
+                    <p role="alert">{logoutError}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/closet" element={<Closet />} />
+            <Route path="/clothes" element={<Clothes />} />
+            <Route
+              path="/create-outfit"
+              element={<CreateOutfit />}
+            />
+            <Route path="/friends" element={<Friends />} />
+            <Route path="/planner" element={<Planner />} />
+            <Route
+              path="/profile"
+              element={
+                <Profile
+                  user={user}
+                  onLogout={handleLogout}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={<Login onLogin={handleLogin} />}
+            />
+            <Route
+              path="/signup"
+              element={<Signup onSignup={handleSignup} />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
+
+        <footer>
+          <div>
+            <h2>Resources</h2>
+            <a href="https://github.com/sofiaolcs/startup">
+              GitHub
             </a>
-          </li>
-        </ul>
+            <p>Style Tips</p>
+            <p>Wardrobe Guide</p>
+            <p>Outfit Inspiration</p>
+          </div>
 
-       <div className="welcome">
-  {user ? (
-    <>
-      <p>Welcome, {user.name}!</p>
-      <button type="button" onClick={handleLogout}>
-        Log out
-      </button>
-    </>
-  ) : (
-    <>
-      <NavLink to="/login">Log in</NavLink>
-      {' | '}
-      <NavLink to="/signup">Sign up</NavLink>
-    </>
-  )}
-</div>
+          <p>© 2026 Passarela. All rights reserved.</p>
+
+          <div>
+            <h2>Contact Us</h2>
+            <p>
+              Have questions, feedback, or style suggestions?
+            </p>
+            <p>Email: hello@passarela.com</p>
+            <p>
+              Follow us for outfit inspiration and updates!
+            </p>
+          </div>
+        </footer>
       </div>
-    </div>
-  </nav>
-</header>
-
-<div className="content">
-<Routes>
-  <Route path='/' element={<Home />} exact />
-  <Route path='/closet' element={<Closet />} />
-  <Route path='/clothes' element={<Clothes />} />
-  <Route path='/create-outfit' element={<CreateOutfit />} />
-  <Route path='/friends' element={<Friends />} />
-  <Route path='/planner' element={<Planner />} />
-  <Route
-  path="/profile"
-  element={<Profile user={user} onLogout={handleLogout} />}
-/>
-  <Route
-  path="/login"
-  element={<Login onLogin={handleLogin} />}
-/>
-
-<Route
-  path="/signup"
-  element={<Signup onSignup={handleSignup} />}
-/>
-  <Route path='*' element={<NotFound />} />
-</Routes>
-</div>
-
-<footer>
-  <div>
-    <h2>Resources</h2>
-    <NavLink to="https://github.com/sofiaolcs/startup">GitHub</NavLink>
-    <p>Style Tips</p>
-    <p>Wardrobe Guide</p>
-    <p>Outfit Inspiration</p>
-  </div>
-  <p>© 2026 Passarela. All rights reserved.</p>
-  <div>
-    <h2>Contact Us</h2>
-    <p>Have questions, feedback, or style suggestions?</p>
-    <p>Email: hello@passarela.com</p>
-    <p>Follow us for outfit inspiration and updates!</p>
-  </div>
-</footer>
-</div>
-</BrowserRouter>
-)
+    </BrowserRouter>
+  );
 }
 
 function NotFound() {
-  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+  return (
+    <main className="container-fluid bg-secondary text-center">
+      404: Return to sender. Address unknown.
+    </main>
+  );
 }
