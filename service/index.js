@@ -1,5 +1,12 @@
 const path = require('path');
 const express = require('express');
+const {
+  connectDatabase,
+  userCollection,
+  clothesCollection,
+  outfitsCollection,
+  sessionsCollection,
+} = require('./database');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
@@ -43,37 +50,67 @@ app.get('/api/weather', async (req, res) => {
 
 // Create a new user
 app.post('/api/auth/create', async (req, res) => {
-  if (users.find((user) => user.email === req.body.email)) {
-    return res.status(409).send({ message: 'Email already registered.' });
+  try {
+    const { name, email, password } = req.body;
+
+    if (
+      typeof name !== 'string' ||
+      !name.trim() ||
+      typeof email !== 'string' ||
+      !email.trim() ||
+      typeof password !== 'string' ||
+      password.length < 8
+    ) {
+      return res.status(400).send({
+        message: 'Enter a name, email, and password of at least 8 characters.',
+      });
+    }
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    const existingUser = await userCollection.findOne({
+      email: normalizedEmail,
+    });
+
+    if (existingUser) {
+      return res.status(409).send({
+        message: 'Email already registered.',
+      });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    const user = {
+      name: name.trim(),
+      email: normalizedEmail,
+      password: passwordHash,
+    };
+
+    await userCollection.insertOne(user);
+
+    const token = uuidv4();
+
+    await sessionsCollection.insertOne({
+      token,
+      email: user.email,
+    });
+
+    res.cookie(authCookieName, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
+
+    res.send({
+      name: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    console.error('Registration error:', error);
+    res.status(500).send({
+      message: 'Unable to create account.',
+    });
   }
-
-  const passwordHash = await bcrypt.hash(req.body.password, 10);
-
-  const user = {
-    name: req.body.name,
-    email: req.body.email,
-    password: passwordHash,
-  };
-
-  users.push(user);
-
-const token = uuidv4();
-
-sessions.push({
-  token: token,
-  email: user.email,
-});
-
-res.cookie(authCookieName, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-  });
-
-  res.send({
-    name: user.name,
-    email: user.email,
-  });
 });
 
 // Login an existing user
@@ -239,6 +276,17 @@ const distPath = path.join(__dirname, '..', 'dist');
 app.use(express.static(fs.existsSync(publicPath) ? publicPath : distPath));
 
 // Start server
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`);
-});
+async function startServer() {
+  try {
+    await connectDatabase();
+
+    app.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
+    });
+  } catch (error) {
+    console.error('Failed to start server:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
