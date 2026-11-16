@@ -253,20 +253,27 @@ app.get('/api/clothes', verifyAuth, async (req, res) => {
 });
 
 // Add a clothing item
-app.post('/api/clothes', verifyAuth, (req, res) => {
-  const newClothing = {
-    id: uuidv4(),
-    userEmail: req.user.email,
-    name: req.body.name,
-    type: req.body.type,
-    color: req.body.color,
-    brand: req.body.brand,
-    image: req.body.image,
-  };
+app.post('/api/clothes', verifyAuth, async (req, res) => {
+  try {
+    const newClothing = {
+      id: uuidv4(),
+      userEmail: req.user.email,
+      name: req.body.name,
+      type: req.body.type,
+      color: req.body.color,
+      brand: req.body.brand,
+      image: req.body.image,
+    };
 
-  clothes.push(newClothing);
+    await clothesCollection.insertOne(newClothing);
 
-  res.send(newClothing);
+    res.send(newClothing);
+  } catch (error) {
+    console.error('Error saving clothing:', error);
+    res.status(500).send({
+      message: 'Unable to save clothing item.',
+    });
+  }
 });
 
 // Delete a clothing item
