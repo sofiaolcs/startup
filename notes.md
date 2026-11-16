@@ -89,3 +89,7 @@ useState stores information that can change, such as clothing items, outfits, or
 useEffect runs code after a component renders, such as loading saved data or synchronizing information.
 
 When state changes, React updates the user interface automatically.
+
+
+## DB
+I replaced in-memory arrays with MongoDB collections to permanently store users, clothing items, outfits, and authentication sessions. I also learned how to use database operations such as insertOne(), findOne(), and deleteOne(), securely hash passwords with bcrypt, and protect user data through authentication. Finally, I tested my application to make sure users could register, save clothes, and create outfits without losing their data after refreshing the page.
