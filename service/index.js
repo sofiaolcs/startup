@@ -115,38 +115,59 @@ app.post('/api/auth/create', async (req, res) => {
 
 // Login an existing user
 app.post('/api/auth/login', async (req, res) => {
-  const user = users.find((user) => user.email === req.body.email);
+  try {
+    const { email, password } = req.body;
 
-  if (!user) {
-    return res.status(401).send({ message: 'Invalid email or password.' });
+    if (typeof email !== 'string' || typeof password !== 'string') {
+      return res.status(400).send({
+        message: 'Email and password are required.',
+      });
+    }
+
+    const user = await userCollection.findOne({
+      email: email.trim().toLowerCase(),
+    });
+
+    if (!user) {
+      return res.status(401).send({
+        message: 'Invalid email or password.',
+      });
+    }
+
+    const passwordMatches = await bcrypt.compare(
+      password,
+      user.password
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).send({
+        message: 'Invalid email or password.',
+      });
+    }
+
+    const token = uuidv4();
+
+    await sessionsCollection.insertOne({
+      token,
+      email: user.email,
+    });
+
+    res.cookie(authCookieName, token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
+
+    res.send({
+      name: user.name,
+      email: user.email,
+    });
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).send({
+      message: 'Unable to log in.',
+    });
   }
-
-  const passwordMatches = await bcrypt.compare(
-    req.body.password,
-    user.password
-  );
-
-  if (!passwordMatches) {
-    return res.status(401).send({ message: 'Invalid email or password.' });
-  }
-
-  const token = uuidv4();
-
-  sessions.push({
-  token: token,
-  email: user.email,
-});
-
-  res.cookie(authCookieName, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-  });
-
-  res.send({
-    name: user.name,
-    email: user.email,
-  });
 });
 
 // Verify that the user is authenticated
