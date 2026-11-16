@@ -325,6 +325,71 @@ app.get('/api/planned-outfits', verifyAuth, async (req, res) => {
   }
 });
 
+
+// Retrieve messages involving the logged-in user
+app.get('/api/messages', verifyAuth, async (req, res) => {
+  try {
+    const messages = await messagesCollection
+      .find({
+        $or: [
+          { senderEmail: req.user.email },
+          { recipientEmail: req.user.email },
+        ],
+      })
+      .sort({ createdAt: 1 })
+      .toArray();
+
+    res.send(messages);
+  } catch (error) {
+    console.error('Error retrieving messages:', error);
+    res.status(500).send({ message: 'Unable to retrieve messages.' });
+  }
+});
+
+// Send a message
+app.post('/api/messages', verifyAuth, async (req, res) => {
+  try {
+    const { recipientEmail, text } = req.body;
+
+    if (
+      typeof recipientEmail !== 'string' ||
+      typeof text !== 'string' ||
+      !text.trim()
+    ) {
+      return res.status(400).send({ message: 'Invalid message.' });
+    }
+
+    const recipient = recipientEmail.trim().toLowerCase();
+
+    if (!recipient) {
+      return res.status(400).send({ message: 'Recipient is required.' });
+    }
+
+    const recipientUser = await userCollection.findOne({
+      email: recipient,
+    });
+
+    if (!recipientUser) {
+      return res.status(404).send({ message: 'Recipient not found.' });
+    }
+
+    const message = {
+      id: uuidv4(),
+      senderEmail: req.user.email,
+      recipientEmail: recipient,
+      text: text.trim(),
+      createdAt: new Date(),
+    };
+
+    await messagesCollection.insertOne(message);
+
+    res.status(201).send(message);
+  } catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).send({ message: 'Unable to send message.' });
+  }
+});
+
 // Save planned outfits
 app.put('/api/planned-outfits', verifyAuth, async (req, res) => {
   try {
